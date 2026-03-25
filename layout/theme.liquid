@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0a">
+
+  <title>
+    {{ page_title }}{% if current_tags %} – {{ current_tags | join: ', ' }}{% endif %}
+    {% unless page_title contains shop.name %} – {{ shop.name }}{% endunless %}
+  </title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  {% comment %} Canonical {% endcomment %}
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {% comment %} OG Tags {% endcomment %}
+  <meta property="og:site_name" content="{{ shop.name }}">
+  <meta property="og:url" content="{{ canonical_url }}">
+  <meta property="og:title" content="{{ page_title | escape }}">
+  <meta property="og:type" content="website">
+
+  {% comment %} Shopify required {% endcomment %}
+  {{ content_for_header }}
+
+  {% comment %} Google Fonts + CSS {% endcomment %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  {{ 'tshirtoua.css' | asset_url | stylesheet_tag }}
+</head>
+
+<body class="template-{{ template.name }}{% if customer %} customer-logged-in{% endif %}">
+
+       {% section 'announcement-bar' %}
+    {% section 'header' %}
+
+  {% comment %} ── MAIN CONTENT ── {% endcomment %}
+  <main id="main-content" role="main">
+    {{ content_for_layout }}
+  </main>
+
+    {% section 'features-strip' %}
+    {% section 'footer' %}
+
+    {% render 'cart-drawer' %}
+    {% render 'notification-toast' %}
+
+  {% comment %} ── SCRIPTS ── {% endcomment %}
+  {{ 'cart-api.js'   | asset_url | script_tag }}
+  {{ 'tshirtoua.js'  | asset_url | script_tag }}
+
+</body>
+</html>
+
+

@@ -1,0 +1,58 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Tshirtoua",
+    "theme_version": "1.0.0",
+    "theme_author": "تشيرتوا",
+    "theme_documentation_url": "https://github.com/Shopify/shopify-cli",
+    "theme_support_url": "https://github.com/Shopify/shopify-cli/issues"
+  },
+  {
+    "name": "الألوان",
+    "settings": [
+      {
+        "type": "color",
+        "id": "accent_color",
+        "label": "لون الـ Accent",
+        "default": "#e8ff00"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "لون الخلفية",
+        "default": "#0a0a0a"
+      }
+    ]
+  },
+  {
+    "name": "المتجر",
+    "settings": [
+      {
+        "type": "text",
+        "id": "store_name",
+        "label": "اسم المتجر",
+        "default": "تشيرتوا"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "اللوجو (اختياري)"
+      },
+      {
+        "type": "textarea",
+        "id": "store_description",
+        "label": "وصف المتجر",
+        "default": "أجمل التيشرتات والبناطيل لكل الفصول"
+      }
+    ]
+  },
+  {
+    "name": "السوشيال ميديا",
+    "settings": [
+      { "type": "url", "id": "social_instagram", "label": "Instagram" },
+      { "type": "url", "id": "social_facebook",  "label": "Facebook" },
+      { "type": "url", "id": "social_tiktok",    "label": "TikTok" },
+      { "type": "url", "id": "social_whatsapp",  "label": "WhatsApp" }
+    ]
+  }
+]

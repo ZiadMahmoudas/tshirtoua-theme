@@ -1,0 +1,74 @@
+{% comment %} templates/collection.liquid {% endcomment %}
+
+<div class="container section">
+
+  {% comment %} Collection Header {% endcomment %}
+  <div style="margin-bottom:32px;">
+    <p class="section-label">{{ collection.handle | replace: '-', ' ' }}</p>
+    <h1 class="section-title">{{ collection.title }}</h1>
+    {% if collection.description != blank %}
+      <p style="color:var(--text-muted);margin-top:8px;max-width:600px;">{{ collection.description }}</p>
+    {% endif %}
+  </div>
+
+  {% comment %} Filter Bar {% endcomment %}
+  <div class="filter-bar">
+    <span class="filter-bar__count">{{ collection.products_count }} منتج</span>
+    <div class="filter-chips">
+      <div class="filter-chip active" data-filter="all">الكل</div>
+      {% for tag in collection.all_tags %}
+        <div class="filter-chip" data-filter="{{ tag | handleize }}">{{ tag }}</div>
+      {% endfor %}
+    </div>
+
+    {% comment %} Sort {% endcomment %}
+    <div>
+      <select class="form-input" id="sort-select" style="width:auto;padding:8px 12px;" onchange="window.location.href=this.value;">
+        <option value="?sort_by=manual" {% if collection.sort_by == 'manual' %}selected{% endif %}>الترتيب الافتراضي</option>
+        <option value="?sort_by=price-ascending" {% if collection.sort_by == 'price-ascending' %}selected{% endif %}>السعر: من الأقل</option>
+        <option value="?sort_by=price-descending" {% if collection.sort_by == 'price-descending' %}selected{% endif %}>السعر: من الأعلى</option>
+        <option value="?sort_by=created-descending" {% if collection.sort_by == 'created-descending' %}selected{% endif %}>الأحدث</option>
+        <option value="?sort_by=best-selling" {% if collection.sort_by == 'best-selling' %}selected{% endif %}>الأكثر مبيعاً</option>
+      </select>
+    </div>
+  </div>
+
+  {% comment %} Products Grid {% endcomment %}
+  {% if collection.products.size > 0 %}
+    <div class="grid grid-4" id="collection-grid">
+      {% for product in collection.products %}
+        {% render 'product-card', product: product %}
+      {% endfor %}
+    </div>
+
+    {% comment %} Pagination {% endcomment %}
+    {% if paginate.pages > 1 %}
+      <div style="display:flex;justify-content:center;gap:8px;margin-top:48px;">
+        {% if paginate.previous %}
+          <a href="{{ paginate.previous.url }}" class="btn btn-outline btn-sm">← السابق</a>
+        {% endif %}
+        {% for part in paginate.parts %}
+          {% if part.is_link %}
+            <a href="{{ part.url }}" class="btn btn-outline btn-sm">{{ part.title }}</a>
+          {% else %}
+            <span class="btn btn-primary btn-sm">{{ part.title }}</span>
+          {% endif %}
+        {% endfor %}
+        {% if paginate.next %}
+          <a href="{{ paginate.next.url }}" class="btn btn-outline btn-sm">التالي →</a>
+        {% endif %}
+      </div>
+    {% endif %}
+
+  {% else %}
+    <div class="empty-state">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <h3>مفيش منتجات هنا دلوقتي</h3>
+      <p>بنشتغل على إضافة منتجات جديدة قريب</p>
+      <a href="/collections/all" class="btn btn-primary">شوف كل المنتجات</a>
+    </div>
+  {% endif %}
+
+</div>

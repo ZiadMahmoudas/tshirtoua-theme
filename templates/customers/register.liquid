@@ -1,0 +1,112 @@
+{% comment %} templates/customers/register.liquid {% endcomment %}
+
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-card__logo">تشيرت<span style="color:var(--text)">وا</span></div>
+    <p class="auth-card__tagline">إنضم لعيلة تشيرتوا 🎉</p>
+
+    <h2 class="auth-card__title">إنشاء حساب جديد</h2>
+
+    {% if form.errors %}
+      <div style="background:rgba(255,69,69,.1);border:1px solid var(--danger);border-radius:var(--radius-sm);padding:12px;margin-bottom:16px;font-size:.875rem;color:var(--danger);">
+        ⚠️ {{ form.errors | default_errors }}
+      </div>
+    {% endif %}
+
+    {% form 'create_customer', id: 'register-form' %}
+      <div class="grid grid-2" style="gap:12px;">
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label" for="first_name">الاسم الأول</label>
+          <input
+            class="form-input"
+            type="text"
+            id="first_name"
+            name="customer[first_name]"
+            autocomplete="given-name"
+            placeholder="أحمد"
+            required>
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label" for="last_name">اسم العيلة</label>
+          <input
+            class="form-input"
+            type="text"
+            id="last_name"
+            name="customer[last_name]"
+            autocomplete="family-name"
+            placeholder="محمد">
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top:16px;">
+        <label class="form-label" for="email">البريد الإلكتروني</label>
+        <input
+          class="form-input"
+          type="email"
+          id="email"
+          name="customer[email]"
+          autocomplete="email"
+          placeholder="example@email.com"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">كلمة السر</label>
+        <div class="input-group">
+          <input
+            class="form-input"
+            type="password"
+            id="password"
+            name="customer[password]"
+            autocomplete="new-password"
+            placeholder="5 أحرف على الأقل"
+            style="padding-left:44px;"
+            minlength="5"
+            required>
+          <span class="input-toggle" role="button" tabindex="0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password_confirm">تأكيد كلمة السر</label>
+        <div class="input-group">
+          <input
+            class="form-input"
+            type="password"
+            id="password_confirm"
+            name="password_confirm"
+            autocomplete="new-password"
+            placeholder="أعد كتابة كلمة السر"
+            style="padding-left:44px;"
+            required>
+          <span class="input-toggle" role="button" tabindex="0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+
+      <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:20px;">
+        بالتسجيل، بتوافق على
+        <a href="/policies/terms-of-service" style="color:var(--accent);">شروط الاستخدام</a>
+        و
+        <a href="/policies/privacy-policy" style="color:var(--accent);">سياسة الخصوصية</a>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-full btn-lg">
+        إنشاء الحساب 🚀
+      </button>
+    {% endform %}
+
+    <div class="auth-footer">
+      عندك حساب بالفعل؟ <a href="/account/login">سجل دخولك</a>
+    </div>
+  </div>
+</div>

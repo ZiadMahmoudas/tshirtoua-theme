@@ -1,0 +1,71 @@
+<header class="site-header" id="site-header">
+  <div class="container">
+    <div class="header-inner">
+
+      {% comment %} Logo (ديناميك بيقرأ اسم المتجر) {% endcomment %}
+      <a href="{{ routes.root_url }}" class="site-logo">
+        {{ shop.name }}
+      </a>
+
+      {% comment %} Desktop Nav (ديناميك بيقرأ من الـ Main Menu في شوبيفاي) {% endcomment %}
+      <nav class="site-nav" id="site-nav">
+        {% for link in linklists.main-menu.links %}
+          <a href="{{ link.url }}" class="{% if link.active %}active{% endif %}">
+            {{ link.title }}
+          </a>
+        {% endfor %}
+      </nav>
+
+      {% comment %} Search + Actions {% endcomment %}
+      <div class="header-actions">
+
+        {% comment %} Search Form (شغال وبيروح لصفحة البحث الصح) {% endcomment %}
+        <form action="{{ routes.search_url }}" method="get" role="search" class="header-search">
+          <button type="submit" class="search-submit-btn" aria-label="بحث">
+            <svg class="header-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </button>
+          <input type="search" name="q" placeholder="ابحث عن منتج..." value="{{ search.terms | escape }}" autocomplete="off">
+        </form>
+
+        <div class="header-icons-group">
+          {% comment %} Account {% endcomment %}
+          <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="header-icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </a>
+
+          {% comment %} Cart {% endcomment %}
+          <button class="header-icon-btn cart-btn-trigger" data-open-cart>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+            <span class="cart-count" id="cart-count">{{ cart.item_count }}</span>
+          </button>
+
+          {% comment %} Mobile Toggle {% endcomment %}
+          <button class="menu-toggle" id="menu-toggle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+{% comment %} Mobile Nav (ديناميك برضه) {% endcomment %}
+<div id="mobile-nav" class="mobile-nav-container" style="display:none;">
+  {% for link in linklists.main-menu.links %}
+    <a href="{{ link.url }}">{{ link.title }}</a>
+  {% endfor %}
+  {% if customer %}
+    <a href="{{ routes.account_url }}">حسابي</a>
+    <a href="{{ routes.account_logout_url }}">خروج</a>
+  {% else %}
+    <a href="{{ routes.account_login_url }}">تسجيل الدخول</a>
+  {% endif %}
+</div>

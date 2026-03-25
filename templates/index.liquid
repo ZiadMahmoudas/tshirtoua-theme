@@ -1,0 +1,78 @@
+{% comment %} Homepage — index.liquid {% endcomment %}
+
+{% section 'hero' %}
+
+{% comment %} ── CATEGORY TABS ── {% endcomment %}
+<div class="section-sm" style="padding-bottom:0;">
+  <div class="container">
+    <div class="category-tabs">
+      <div class="category-tab active" data-filter="all">
+        <span class="tab-icon">🏷️</span> الكل
+      </div>
+      <div class="category-tab tab-summer" data-filter="summer">
+        <span class="tab-icon">☀️</span> صيفي
+      </div>
+      <div class="category-tab tab-winter" data-filter="winter">
+        <span class="tab-icon">❄️</span> شتوي
+      </div>
+      <div class="category-tab tab-autumn" data-filter="autumn">
+        <span class="tab-icon">🍂</span> خريفي
+      </div>
+      <div class="category-tab tab-casual" data-filter="casual">
+        <span class="tab-icon">👕</span> كاجوال
+      </div>
+    </div>
+  </div>
+</div>
+
+{% comment %} ── FEATURED PRODUCTS ── {% endcomment %}
+{% section 'featured-products' %}
+
+{% comment %} ── COLLECTIONS BANNER ── {% endcomment %}
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">استكشف</p>
+      <h2 class="section-title">الكوليكشنز</h2>
+    </div>
+    <div class="grid grid-4" style="grid-template-columns: repeat(2,1fr) 1fr 1fr;">
+      {% for collection in collections limit:4 %}
+        {% unless collection.handle == 'frontpage' %}
+          <a href="{{ collection.url }}" class="collection-card">
+            {% if collection.image %}
+              <img src="{{ collection.image | img_url: '600x800' }}" alt="{{ collection.title }}" loading="lazy">
+            {% else %}
+              <div style="width:100%;height:100%;background:var(--bg-elevated);display:flex;align-items:center;justify-content:center;font-size:3rem;">
+                {% case collection.handle %}
+                  {% when 'summer' %}☀️
+                  {% when 'winter' %}❄️
+                  {% when 'autumn' %}🍂
+                  {% else %}👕
+                {% endcase %}
+              </div>
+            {% endif %}
+            <div class="collection-card__overlay">
+              <h3 class="collection-card__name">{{ collection.title }}</h3>
+              <p class="collection-card__count">{{ collection.products_count }} منتج</p>
+            </div>
+          </a>
+        {% endunless %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% comment %} ── TEST PRODUCT (0 EGP) — بيان للعملاء ── {% endcomment %}
+{% assign test_product = all_products['test-order'] %}
+{% if test_product %}
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div style="background:var(--bg-card);border:1px solid var(--accent);border-radius:var(--radius);padding:24px;max-width:500px;margin:0 auto;text-align:center;">
+        <div style="font-size:1.5rem;margin-bottom:8px;">🧪</div>
+        <h3 style="font-size:1rem;font-weight:700;color:var(--accent);margin-bottom:8px;">تجربة الدفع</h3>
+        <p style="font-size:.85rem;color:var(--text-muted);margin-bottom:16px;">منتج تجريبي بـ 0 جنيه لاختبار بطاقتك</p>
+        <a href="{{ test_product.url }}" class="btn btn-outline btn-sm">جرب دلوقتي →</a>
+      </div>
+    </div>
+  </section>
+{% endif %}

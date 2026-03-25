@@ -1,0 +1,28 @@
+{% comment %} sections/announcement-bar.liquid {% endcomment %}
+
+{% if section.settings.show_bar %}
+<div class="announcement-bar">
+  <div class="announcement-bar__inner">
+    {% for i in (1..4) %}
+      <span>{{ section.settings.text_1 }}</span>
+      <span>★</span>
+      <span>{{ section.settings.text_2 }}</span>
+      <span>★</span>
+      <span>{{ section.settings.text_3 }}</span>
+      <span>★</span>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    { "type": "checkbox", "id": "show_bar", "label": "إظهار الشريط", "default": true },
+    { "type": "text", "id": "text_1", "label": "نص 1", "default": "🚚 شحن مجاني فوق 500 جنيه" },
+    { "type": "text", "id": "text_2", "label": "نص 2", "default": "✅ دفع آمن 100%" },
+    { "type": "text", "id": "text_3", "label": "نص 3", "default": "↩ استرجاع مجاني خلال 14 يوم" }
+  ]
+}
+{% endschema %}

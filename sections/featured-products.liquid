@@ -1,0 +1,50 @@
+{% comment %} sections/featured-products.liquid {% endcomment %}
+
+<section class="section">
+  <div class="container">
+    <div class="section-header flex-between">
+      <div>
+        <p class="section-label">الأكثر مبيعاً</p>
+        <h2 class="section-title">منتجاتنا المميزة</h2>
+      </div>
+      <a href="/collections/all" class="btn btn-outline btn-sm">عرض الكل →</a>
+    </div>
+
+    <div class="grid grid-4" id="products-grid">
+      {% assign featured = collections[section.settings.collection] %}
+      {% if featured != blank %}
+        {% for product in featured.products limit: section.settings.products_count %}
+          {% render 'product-card', product: product %}
+        {% endfor %}
+      {% else %}
+        {% for product in collections.all.products limit: 8 %}
+          {% render 'product-card', product: product %}
+        {% endfor %}
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "اختار الكوليكشن"
+    },
+    {
+      "type": "range",
+      "id": "products_count",
+      "min": 4,
+      "max": 12,
+      "step": 4,
+      "label": "عدد المنتجات",
+      "default": 8
+    }
+  ],
+  "presets": [{ "name": "Featured Products" }]
+}
+{% endschema %}
