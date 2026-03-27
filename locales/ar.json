@@ -697,7 +697,8 @@
       "saved_at": "حفظ في {{date}} الساعة {{time}}",
       "viewing": "أنت تشاهد حاليًا:",
       "not_available": "بيانات الملف الشخصي غير متوفرة",
-      "actions_button": "إجراءات"
+      "actions_button": "إجراءات",
+      "customize_button": "تخصيص"
     },
     "active_inspector": {
       "extension": {
@@ -793,6 +794,132 @@
           "invalid_code": "أدخل الرمز الصحيح المكون من 6 أرقام"
         }
       }
+    },
+    "payment_methods": {
+      "add_payment_method": {
+        "billing_address": {
+          "add_billing_address_button": "إضافة جديد",
+          "add_billing_address_button_accessibility_label": "إضافة عنوان فوترة جديد",
+          "choose_billing_address_from_list_button": "اختر من القائمة",
+          "choose_billing_address_from_list_button_accessibility_label": "اختر عنوان فوترة من القائمة",
+          "missing_billing_address_error_message": "الرجاء تحديد عنوان الفواتير",
+          "default_checkbox": "تعيين كوسيلة الدفع الافتراضية"
+        },
+        "subscription_contracts": {
+          "title": "استخدام وسيلة الدفع للطلبات المتكررة",
+          "more_items": {
+            "one": "منتجات إضافية: {{count}}",
+            "other": "{{count}} منتجات إضافية"
+          },
+          "product_count": {
+            "one": "{{count}} منتج",
+            "other": "{{count}} منتجات"
+          },
+          "product_details": "تفاصيل المنتج",
+          "load_more": "تحميل المزيد"
+        },
+        "updating_contracts": {
+          "one": "جاري تحديث {{count}} عقد اشتراك...",
+          "other": "جارٍ تحديث {{count}} من عقود الاشتراك..."
+        },
+        "contracts_updated": {
+          "one": "تم تحديث {{count}} عقد اشتراك بنجاح",
+          "other": "تم تحديث {{count}} عقد اشتراك بنجاح"
+        },
+        "contracts_update_failed": "فشل تحديث بعض عقود الاشتراك",
+        "subscription_contracts_updated": "تم تحديث {{succeeded}} من {{total}} اشتراكات",
+        "invalid_wallet_type_error": "نوع المحفظة غير صالح."
+      },
+      "three_d_secure": {
+        "title": "التحقق الثلاثي الأبعاد",
+        "verification_failed": "تعذر التحقق من دفعتك. يرجى إعادة المحاولة أو استخدام طريقة دفع أخرى."
+      }
+    },
+    "payment_method_brands": {
+      "visa": "تأشيرة",
+      "mastercard": "ماستركارد",
+      "americanexpress": "أمريكان إكسبريس",
+      "discover": "اكتشف",
+      "dinersclub": "داينرز كلوب",
+      "jcb": "جيه سي بي",
+      "elo": "إيلو",
+      "visaelectron": "فيزا إلكترون",
+      "maestro": "المايسترو",
+      "dankort": "دانكورت",
+      "hipercard": "هايبركارد",
+      "unionpay": "يونيون باي",
+      "laser": "ليزر",
+      "shoppay": "شوب باي",
+      "paypal": "باي بال",
+      "storecredit": "رصيد المتجر",
+      "bogus": "زائف"
+    },
+    "privacy_banner": {
+      "cookie_preferences_link": "تفضيلات الكوكيز"
+    },
+    "ui_components": {
+      "clear": "واضح",
+      "clipboardCopied": "تم النسخ",
+      "clipboardFailedToCopy": "فشل النسخ",
+      "closeNotification": "إغلاق",
+      "expandNotification": "عرض المزيد",
+      "closeModal": "إغلاق",
+      "submit": "إرسال",
+      "processing": "جارٍ المعالجة…",
+      "increase": "زيادة {{type}}",
+      "decrease": "خفض {{type}}",
+      "minimumReached": "تم الوصول للحد الأدنى البالغ {{value}}",
+      "maximumReached": "تم الوصول للحد الأقصى {{value}}",
+      "january": "يناير",
+      "february": "فبراير",
+      "march": "مارس",
+      "april": "أبريل",
+      "may": "مايو/أيار",
+      "june": "يونيو",
+      "july": "يوليو",
+      "august": "أغسطس",
+      "september": "سبتمبر",
+      "october": "أكتوبر",
+      "november": "نوفمبر",
+      "december": "ديسمبر",
+      "monday": "الاثنين",
+      "tuesday": "الثلاثاء",
+      "wednesday": "الأربعاء",
+      "thursday": "الخميس",
+      "friday": "الجمعة",
+      "saturday": "السبت",
+      "sunday": "الأحد",
+      "mondayAbbreviation": "مو",
+      "tuesdayAbbreviation": "أنت",
+      "wednesdayAbbreviation": "نحن",
+      "thursdayAbbreviation": "الخميس",
+      "fridayAbbreviation": "موافق",
+      "saturdayAbbreviation": "سا",
+      "sundayAbbreviation": "سو",
+      "showNextMonth": "عرض الشهر التالي، {{month}} {{year}}",
+      "showPreviousMonth": "عرض الشهر السابق، {{month}} {{year}}",
+      "rangeStart": "بداية المدى",
+      "inRange": "ضمن النطاق",
+      "rangeEnd": "نهاية النطاق",
+      "autocompleteOptionsAvailable": {
+        "one": "{{count}} سلعة متاحة",
+        "other": "{{count}} قطعة متوفرة"
+      },
+      "removeItem": "إزالة {{label}}",
+      "removeTag": "إزالة الوسم",
+      "month": {
+        "one": "شهر",
+        "other": "أشهر"
+      },
+      "mapClusterTitle": {
+        "one": "مجموعة من {{number}} علامة",
+        "other": "مجموعة من {{number}} علامات"
+      },
+      "expandSheet": "توسيع",
+      "qrCode": "رمز الاستجابة السريعة",
+      "addFile": "إضافة ملف",
+      "dropzoneInvalidFileType": "نوع الملف غير مدعوم",
+      "dropzoneDraggedOver": "اسحب الملف للتحميل"
     }
   }
 }
