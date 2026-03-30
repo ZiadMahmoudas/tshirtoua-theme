@@ -4,47 +4,95 @@
   <div class="container">
     <div class="section-header flex-between">
       <div>
-        <p class="section-label">الأكثر مبيعاً</p>
-        <h2 class="section-title">منتجاتنا المميزة</h2>
+        <p class="section-label">{{ section.settings.label | default: 'الأكثر مبيعاً' }}</p>
+        <h2 class="section-title">{{ section.settings.title | default: 'منتجاتنا المميزة' }}</h2>
       </div>
-      <a href="/collections/all" class="btn btn-outline btn-sm">عرض الكل →</a>
+      <a href="/collections/all" class="btn btn-outline btn-sm">
+        {{ 'sections.featured_products.view_all' | t | default: 'عرض الكل' }} →
+      </a>
     </div>
 
     <div class="grid grid-4" id="products-grid">
-      {% assign featured = collections[section.settings.collection] %}
-      {% if featured != blank %}
-        {% for product in featured.products limit: section.settings.products_count %}
-          {% render 'product-card', product: product %}
-        {% endfor %}
-      {% else %}
-        {% for product in collections.all.products limit: 8 %}
-          {% render 'product-card', product: product %}
-        {% endfor %}
-      {% endif %}
-    </div>
 
+      {% comment %}
+        ── Priority 1: Use the collection chosen in section settings
+        ── Priority 2: Fall back to "all" products
+      {% endcomment %}
+
+      {% if section.settings.collection != blank %}
+        {% assign src_collection = collections[section.settings.collection] %}
+      {% else %}
+        {% assign src_collection = collections['all'] %}
+      {% endif %}
+
+      {% if src_collection and src_collection.products.size > 0 %}
+
+        {% assign limit_count = section.settings.products_count | default: 8 %}
+        {% for product in src_collection.products limit: limit_count %}
+          {% render 'product-card', product: product %}
+        {% endfor %}
+
+      {% else %}
+
+        {% comment %} Fallback: show any products from the store {% endcomment %}
+        {% assign fallback_count = 0 %}
+        {% for product in all_products limit: 8 %}
+          {% render 'product-card', product: product %}
+          {% assign fallback_count = fallback_count | plus: 1 %}
+        {% endfor %}
+
+        {% if fallback_count == 0 %}
+          <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
+            <p style="color: var(--text-muted); font-size: 0.95rem;">
+              مفيش منتجات متاحة دلوقتي — ضيف منتجات من لوحة تحكم Shopify
+            </p>
+          </div>
+        {% endif %}
+
+      {% endif %}
+
+    </div>
   </div>
 </section>
 
 {% schema %}
 {
   "name": "Featured Products",
+  "tag": "section",
+  "class": "section-featured-products",
   "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label (small text above title)",
+      "default": "الأكثر مبيعاً"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "منتجاتنا المميزة"
+    },
     {
       "type": "collection",
       "id": "collection",
-      "label": "اختار الكوليكشن"
+      "label": "Collection to display",
+      "info": "اختار كوليكشن — لو مش مختار هيعرض أول 8 منتجات"
     },
     {
       "type": "range",
       "id": "products_count",
+      "label": "Number of products to show",
       "min": 4,
       "max": 12,
       "step": 4,
-      "label": "عدد المنتجات",
       "default": 8
     }
   ],
-  "presets": [{ "name": "Featured Products" }]
+  "presets": [
+    {
+      "name": "Featured Products"
+    }
+  ]
 }
 {% endschema %}

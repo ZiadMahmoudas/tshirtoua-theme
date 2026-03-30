@@ -1,14 +1,20 @@
+{% comment %} sections/header.liquid {% endcomment %}
+
 <header class="site-header" id="site-header">
   <div class="container">
     <div class="header-inner">
 
-      {% comment %} Logo (ديناميك بيقرأ اسم المتجر) {% endcomment %}
       <a href="{{ routes.root_url }}" class="site-logo">
-        {{ shop.name }}
+        {% if section.settings.logo != blank %}
+          <img src="{{ section.settings.logo | img_url: '200x60' }}"
+               alt="{{ shop.name }}"
+               style="height:40px;width:auto;object-fit:contain;">
+        {% else %}
+          {{ shop.name }}
+        {% endif %}
       </a>
 
-      {% comment %} Desktop Nav (ديناميك بيقرأ من الـ Main Menu في شوبيفاي) {% endcomment %}
-      <nav class="site-nav" id="site-nav">
+      <nav class="site-nav">
         {% for link in linklists.main-menu.links %}
           <a href="{{ link.url }}" class="{% if link.active %}active{% endif %}">
             {{ link.title }}
@@ -16,56 +22,147 @@
         {% endfor %}
       </nav>
 
-      {% comment %} Search + Actions {% endcomment %}
       <div class="header-actions">
 
-        {% comment %} Search Form (شغال وبيروح لصفحة البحث الصح) {% endcomment %}
-        <form action="{{ routes.search_url }}" method="get" role="search" class="header-search">
-          <button type="submit" class="search-submit-btn" aria-label="بحث">
-            <svg class="header-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
+    {% comment %} ── Language Switcher ── {% endcomment %}
+{% if localization.available_languages.size >= 1 %}
+  <div class="lang-switcher">
+    {% form 'localization', id: 'HeaderLanguageForm', class: 'localization-form' %}
+      <input type="hidden" name="locale_code" id="HeaderLocaleInput"
+             value="{{ localization.language.iso_code }}">
+      <input type="hidden" name="_method" value="put">
+
+      <button type="button" class="lang-btn" id="lang-btn">
+        <span class="lang-flag">
+          {% case localization.language.iso_code %}
+            {% when 'ar' %}🇪🇬
+            {% when 'en' %}🇬🇧
+            {% else %}🌐
+          {% endcase %}
+        </span>
+        <i class="fa-solid fa-chevron-down lang-chevron"></i>
+      </button>
+
+      <ul class="lang-dropdown" id="lang-dropdown" role="listbox">
+        {% for language in localization.available_languages %}
+          {% unless language.iso_code == 'my' %}
+            <li class="lang-option {% if language.iso_code == localization.language.iso_code %}selected{% endif %}"
+                role="option"
+                data-code="{{ language.iso_code }}"
+                data-input="HeaderLocaleInput"
+                data-form="HeaderLanguageForm">
+              <span class="lang-flag">
+                {% case language.iso_code %}
+                  {% when 'ar' %}🇪🇬
+                  {% when 'en' %}🇬🇧
+                  {% else %}🌐
+                {% endcase %}
+              </span>
+              <span class="lang-label">{{ language.endonym_name | capitalize }}</span>
+            </li>
+          {% endunless %}
+        {% endfor %}
+      </ul>
+    {% endform %}
+  </div>
+{% endif %}
+
+        {% comment %} ── Search ── {% endcomment %}
+        <form action="{{ routes.search_url }}" method="get" class="header-search">
+          <button type="submit" style="background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:0.9rem;padding:0 4px;">
+            <i class="fa-solid fa-magnifying-glass"></i>
           </button>
-          <input type="search" name="q" placeholder="ابحث عن منتج..." value="{{ search.terms | escape }}" autocomplete="off">
+          <input type="search" name="q"
+                 placeholder="{{ 'general.search.placeholder' | t | default: 'بحث...' }}"
+                 value="{{ search.terms | escape }}"
+                 aria-label="{{ 'general.search.placeholder' | t | default: 'بحث' }}">
         </form>
 
-        <div class="header-icons-group">
-          {% comment %} Account {% endcomment %}
-          <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="header-icon-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <div class="header-icons-group" style="display:flex;align-items:center;gap:6px;">
+
+          <button id="dark-mode-toggle" class="header-icon-btn"
+                  title="{{ 'general.dark_mode.toggle' | t | default: 'تبديل الوضع' }}"
+                  aria-label="Toggle dark mode">
+            <i class="fa-solid fa-moon" id="dark-mode-icon"></i>
+          </button>
+
+          <a href="/pages/wishlist" class="header-icon-btn"
+             title="{{ 'general.wishlist.title' | t | default: 'المفضلة' }}">
+            <i class="fa-regular fa-heart"></i>
           </a>
 
-          {% comment %} Cart {% endcomment %}
-          <button class="header-icon-btn cart-btn-trigger" data-open-cart>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
-              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-            </svg>
-            <span class="cart-count" id="cart-count">{{ cart.item_count }}</span>
+          <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
+             class="header-icon-btn">
+            <i class="fa-regular fa-user"></i>
+          </a>
+
+          <button class="header-icon-btn" data-open-cart
+                  title="{{ 'cart.general.title' | t | default: 'عربة التسوق' }}"
+                  aria-label="Open cart">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="cart-count {% if cart.item_count > 0 %}visible{% endif %}"
+                  id="cart-count">{{ cart.item_count }}</span>
           </button>
 
-          {% comment %} Mobile Toggle {% endcomment %}
-          <button class="menu-toggle" id="menu-toggle">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
-            </svg>
+          <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+            <i class="fa-solid fa-bars"></i>
           </button>
+
         </div>
       </div>
-
     </div>
+
+    {% comment %} ── Mobile Nav ── {% endcomment %}
+    <div id="mobile-nav" class="mobile-nav-container">
+      {% for link in linklists.main-menu.links %}
+        <a href="{{ link.url }}" class="{% if link.active %}active{% endif %}">
+          {{ link.title }}
+        </a>
+      {% endfor %}
+
+      {% if localization.available_languages.size > 1 %}
+        <div class="mobile-lang-row">
+          {% form 'localization', id: 'MobileLanguageForm' %}
+            <input type="hidden" name="locale_code" id="MobileLocaleInput"
+                   value="{{ localization.language.iso_code }}">
+            <div class="mobile-lang-options">
+              {% for language in localization.available_languages %}
+                <button type="button"
+                        class="mobile-lang-btn {% if language.iso_code == localization.language.iso_code %}active{% endif %}"
+                        data-code="{{ language.iso_code }}"
+                        data-input="MobileLocaleInput"
+                        data-form="MobileLanguageForm">
+                  <span class="lang-flag">
+                    {% case language.iso_code %}
+                      {% when 'ar' %}🇪🇬
+                      {% when 'en' %}🇬🇧
+                      {% else %}🌐
+                    {% endcase %}
+                  </span>
+                  <span>{{ language.endonym_name | capitalize }}</span>
+                </button>
+              {% endfor %}
+            </div>
+          {% endform %}
+        </div>
+      {% endif %}
+    </div>
+
   </div>
 </header>
 
-{% comment %} Mobile Nav (ديناميك برضه) {% endcomment %}
-<div id="mobile-nav" class="mobile-nav-container" style="display:none;">
-  {% for link in linklists.main-menu.links %}
-    <a href="{{ link.url }}">{{ link.title }}</a>
-  {% endfor %}
-  {% if customer %}
-    <a href="{{ routes.account_url }}">حسابي</a>
-    <a href="{{ routes.account_logout_url }}">خروج</a>
-  {% else %}
-    <a href="{{ routes.account_login_url }}">تسجيل الدخول</a>
-  {% endif %}
-</div>
+{% schema %}
+{
+  "name": "Header",
+  "tag": "section",
+  "class": "site-header-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image",
+      "info": "اتركه فاضي عشان يعرض اسم المتجر كنص"
+    }
+  ]
+}
+{% endschema %}

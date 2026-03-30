@@ -1,58 +1,69 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="{{ request.locale.iso_code }}" dir="{{ 'rtl' | t: locale: 'ar' | default: 'rtl' }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0a0a0a">
+  {% comment %} Favicon ديناميكي من Shopify Admin {% endcomment %}
+{% if settings.favicon != blank %}
+  <link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">
+  <link rel="shortcut icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">
+  <link rel="apple-touch-icon" href="{{ settings.favicon | img_url: '180x180' }}">
+{% else %}
+  <link rel="icon" href="{{ 'favicon.png' | asset_url }}" type="image/png">
+{% endif %}
+  <title>{{ page_title }} – {{ shop.name }}</title>
 
-  <title>
-    {{ page_title }}{% if current_tags %} – {{ current_tags | join: ', ' }}{% endif %}
-    {% unless page_title contains shop.name %} – {{ shop.name }}{% endunless %}
-  </title>
-
-  {% if page_description %}
-    <meta name="description" content="{{ page_description | escape }}">
-  {% endif %}
-
-  {% comment %} Canonical {% endcomment %}
-  <link rel="canonical" href="{{ canonical_url }}">
-
-  {% comment %} OG Tags {% endcomment %}
-  <meta property="og:site_name" content="{{ shop.name }}">
-  <meta property="og:url" content="{{ canonical_url }}">
-  <meta property="og:title" content="{{ page_title | escape }}">
-  <meta property="og:type" content="website">
-
-  {% comment %} Shopify required {% endcomment %}
   {{ content_for_header }}
 
-  {% comment %} Google Fonts + CSS {% endcomment %}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  {{ 'tshirtoua.css' | asset_url | stylesheet_tag }}
+  {% comment %} ── DARK MODE: apply theme BEFORE render to prevent flicker ── {% endcomment %}
+  <script>
+    (function() {
+      var saved = localStorage.getItem('theme');
+      if (saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else if (saved === 'light') {
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        // Auto-detect system preference if no saved choice
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      }
+    })();
+  </script>
+
+  {% comment %} ── CSS ── {% endcomment %}
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        crossorigin="anonymous">
+        
+        {% comment %} ── Preconnect fonts ── {% endcomment %}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        {{ 'tshirtoua.css' | asset_url | stylesheet_tag }}
 </head>
 
-<body class="template-{{ template.name }}{% if customer %} customer-logged-in{% endif %}">
+<body class="template-{{ template.name }}">
 
-       {% section 'announcement-bar' %}
-    {% section 'header' %}
+  {% section 'announcement-bar' %}
+  {% section 'header' %}
 
-  {% comment %} ── MAIN CONTENT ── {% endcomment %}
+  {% comment %} ── SPA content wrapper — use #main-content (NOT #spa-content) ── {% endcomment %}
   <main id="main-content" role="main">
     {{ content_for_layout }}
   </main>
 
-    {% section 'features-strip' %}
-    {% section 'footer' %}
+  {% section 'features-strip' %}
+  {% section 'footer' %}
 
-    {% render 'cart-drawer' %}
-    {% render 'notification-toast' %}
+  {% comment %} ── Global snippets ── {% endcomment %}
+  {% render 'cart-drawer' %}
+  {% render 'notification-toast' %}
 
-  {% comment %} ── SCRIPTS ── {% endcomment %}
-  {{ 'cart-api.js'   | asset_url | script_tag }}
-  {{ 'tshirtoua.js'  | asset_url | script_tag }}
+  {% comment %} ── Scripts ── {% endcomment %}
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js" defer></script>
+  <script src="{{ 'cart-api.js' | asset_url }}" defer></script>
+  <script src="{{ 'tshirtoua.js' | asset_url }}" defer></script>
 
 </body>
 </html>
-
-

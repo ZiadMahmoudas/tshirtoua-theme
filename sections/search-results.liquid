@@ -1,0 +1,177 @@
+{% paginate search.results by 12 %}
+
+<div class="search-page">
+  <div class="container">
+
+    <div class="search-hero">
+      <form action="{{ routes.search_url }}" method="get" class="search-bar-big">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" name="q"
+               value="{{ search.terms | escape }}"
+               placeholder="ابحث عن منتج..."
+               autofocus>
+        <input type="hidden" name="type" value="product,article,page">
+        <button type="submit" class="btn btn-primary">بحث</button>
+      </form>
+    </div>
+
+    {% if search.performed %}
+
+      {% if search.results_count > 0 %}
+
+        <div class="sr-meta-row">
+          <p class="sr-count-text">
+            عُثر على <strong>{{ search.results_count }} نتيجة</strong>
+            لـ "<strong>{{ search.terms | escape }}</strong>"
+          </p>
+          <div class="sr-sort-wrap">
+            <span>ترتيب:</span>
+            <select onchange="window.location=this.value">
+              <option value="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product,article,page&sort_by=relevance"
+                {% if search.sort_by == 'relevance' %}selected{% endif %}>الأكثر صلة</option>
+              <option value="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product,article,page&sort_by=price-ascending"
+                {% if search.sort_by == 'price-ascending' %}selected{% endif %}>السعر: من الأقل</option>
+              <option value="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product,article,page&sort_by=price-descending"
+                {% if search.sort_by == 'price-descending' %}selected{% endif %}>السعر: من الأعلى</option>
+              <option value="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product,article,page&sort_by=created-descending"
+                {% if search.sort_by == 'created-descending' %}selected{% endif %}>الأحدث</option>
+            </select>
+          </div>
+        </div>
+
+        <ol class="sr-results-grid" role="list">
+          {% for item in search.results %}
+            <li>
+              {% case item.object_type %}
+
+              {% when 'product' %}
+                <a href="{{ item.url }}" class="sr-card">
+                  <div class="sr-card__media">
+                    {% if item.featured_image %}
+                      <img src="{{ item.featured_image | image_url: width: 400 }}"
+                           alt="{{ item.featured_image.alt | default: item.title }}"
+                           loading="lazy" width="400" height="500">
+                    {% else %}
+                      <div class="sr-card__no-img">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48">
+                          <path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/>
+                        </svg>
+                      </div>
+                    {% endif %}
+                    <div class="sr-card__badges">
+                      {% if item.compare_at_price > item.price %}
+                        {% assign discount = item.compare_at_price | minus: item.price | times: 100 | divided_by: item.compare_at_price %}
+                        <span class="badge-pill badge-sale">-{{ discount }}%</span>
+                      {% endif %}
+                      {% if item.tags contains 'new' or item.tags contains 'جديد' %}
+                        <span class="badge-pill badge-new">جديد</span>
+                      {% endif %}
+                    </div>
+                    {% if item.variants.size == 1 %}
+                      <button class="sr-quick-add"
+                              data-quick-add
+                              data-variant-id="{{ item.first_available_variant.id }}"
+                              data-title="{{ item.title | escape }}"
+                              onclick="event.preventDefault(); event.stopPropagation(); TshirtouaCart.addToCart('{{ item.first_available_variant.id }}', 1, '{{ item.title | escape }}')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14">
+                          <line x1="12" y1="5" x2="12" y2="19"/>
+                          <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                      </button>
+                    {% endif %}
+                  </div>
+                  <div class="sr-card__info">
+                    <p class="sr-card__name">{{ item.title }}</p>
+                    <p class="sr-card__type">{{ item.type | default: 'منتج' }}</p>
+                    <div class="sr-card__price-row">
+                      <span class="sr-card__price">{{ item.price | money }}</span>
+                      {% if item.compare_at_price > item.price %}
+                        <span class="sr-card__price-old">{{ item.compare_at_price | money }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </a>
+
+              {% when 'article' %}
+                <a href="{{ item.url }}" class="sr-card sr-card--article">
+                  <div class="sr-card__media">
+                    {% if item.image %}
+                      <img src="{{ item.image | image_url: width: 400 }}" alt="{{ item.title }}" loading="lazy">
+                    {% else %}
+                      <div class="sr-card__no-img">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                          <polyline points="14 2 14 8 20 8"/>
+                        </svg>
+                      </div>
+                    {% endif %}
+                    <span class="badge-pill badge-season" style="position:absolute;top:10px;right:10px;">مقالة</span>
+                  </div>
+                  <div class="sr-card__info">
+                    <p class="sr-card__name">{{ item.title }}</p>
+                    <p class="sr-card__type">{{ item.published_at | date: '%d/%m/%Y' }}</p>
+                  </div>
+                </a>
+
+              {% when 'page' %}
+                <a href="{{ item.url }}" class="sr-card sr-card--page">
+                  <div class="sr-card__media">
+                    <div class="sr-card__no-img">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10 9 9 9 8 9"/>
+                      </svg>
+                    </div>
+                    <span class="badge-pill badge-season" style="position:absolute;top:10px;right:10px;">صفحة</span>
+                  </div>
+                  <div class="sr-card__info">
+                    <p class="sr-card__name">{{ item.title }}</p>
+                    <p class="sr-card__type">صفحة</p>
+                  </div>
+                </a>
+
+              {% endcase %}
+            </li>
+          {% endfor %}
+        </ol>
+
+        {% if paginate.pages > 1 %}
+          <div class="sr-pagination">
+            {% if paginate.previous %}
+              <a href="{{ paginate.previous.url }}" class="btn btn-outline">السابق</a>
+            {% endif %}
+            <span class="sr-page-info">{{ paginate.current_page }} / {{ paginate.pages }}</span>
+            {% if paginate.next %}
+              <a href="{{ paginate.next.url }}" class="btn btn-outline">التالي</a>
+            {% endif %}
+          </div>
+        {% endif %}
+
+      {% else %}
+
+        <div class="empty-state">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <h3>مش لاقيين نتائج</h3>
+          <p>جرب تدور بكلمة تانية أو تشوف <a href="/collections/all" class="text-accent">كل المنتجات</a></p>
+        </div>
+
+      {% endif %}
+
+    {% endif %}
+
+  </div>
+</div>
+
+{% endpaginate %}
+
+{% schema %}
+{ "name": "Search Results", "tag": "section" }
+{% endschema %}

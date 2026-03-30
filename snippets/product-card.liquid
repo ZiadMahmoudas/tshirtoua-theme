@@ -5,10 +5,14 @@
 
 {% assign default_variant = product.first_available_variant | default: product.variants.first %}
 {% assign is_on_sale = false %}
+
 {% if product.compare_at_price > product.price %}
   {% assign is_on_sale = true %}
+  {% comment %} حساب نسبة الخصم يدوياً {% endcomment %}
+  {% assign savings = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
 {% endif %}
 
+{% comment %} تحديد الفصل من التاجز {% endcomment %}
 {% assign season_tag = '' %}
 {% for tag in product.tags %}
   {% if tag == 'summer' or tag == 'winter' or tag == 'autumn' or tag == 'casual' %}
@@ -17,55 +21,55 @@
   {% endif %}
 {% endfor %}
 
-{% assign thirty_days_ago = now | date: '%s' | minus: 2592000 %}
+{% comment %} حساب لو المنتج جديد (آخر 30 يوم) {% endcomment %}
+{% assign product_created_at = product.created_at | date: '%s' | plus: 0 %}
+{% assign thirty_days_ago = "now" | date: "%s" | minus: 2592000 | plus: 0 %}
 
-<div class="product-card fade-in"
-     data-season="{{ season_tag }}"
-     data-product-id="{{ product.id }}">
+<div class="product-card fade-in" data-season="{{ season_tag }}" data-product-id="{{ product.id }}">
+  
+  <div class="product-card__media-wrapper" style="position: relative; overflow: hidden;">
+    <a href="{{ product.url }}" class="product-card__media">
+      {% if product.featured_image %}
+        <img
+          src="{{ product.featured_image | img_url: '600x750', crop: 'center' }}"
+          alt="{{ product.title | escape }}"
+          loading="lazy"
+          width="600" height="750">
+      {% else %}
+        <div style="width:100%;height:400px;display:flex;align-items:center;justify-content:center;font-size:3rem;background:var(--bg-elevated);">👕</div>
+      {% endif %}
+    </a>
 
-  <a href="{{ product.url }}" class="product-card__media">
-    {% if product.featured_image %}
-      <img
-        src="{{ product.featured_image | img_url: '600x750' }}"
-        alt="{{ product.title | escape }}"
-        loading="lazy"
-        width="600" height="750">
-    {% else %}
-      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:var(--bg-elevated);">👕</div>
-    {% endif %}
+    {% comment %} --- التاجات (Badges) --- {% endcomment %}
+    <div class="product-card__badges" style="position: absolute; top: 10px; right: 10px; display: flex; flex-direction: column; gap: 5px; z-index: 2;">
+      {% if product_created_at > thirty_days_ago %}
+        <span class="badge-pill badge-new">جديد</span>
+      {% endif %}
 
-  {% comment %} تاج 'جديد' - لو المنتج اتعمل في آخر 30 يوم {% endcomment %}
-  {% if product_created_seconds > thirty_days_ago %}
-    <span class="badge-pill badge-new">جديد</span>
-  {% endif %}
+      {% if is_on_sale %}
+        <span class="badge-pill badge-sale">-{{ savings }}%</span>
+      {% endif %}
 
-  {% comment %} تاج الخصم {% endcomment %}
-  {% if is_on_sale %}
-    <span class="badge-pill badge-sale">-{{ discount_percentage }}%</span>
-  {% endif %}
+      {% if season_tag != '' %}
+        <span class="badge-pill badge-season">
+          {% case season_tag %}
+            {% when 'summer' %}☀️ صيفي
+            {% when 'winter' %}❄️ شتوي
+            {% when 'autumn' %}🍂 خريفي
+            {% when 'casual' %}👕 كاجوال
+          {% endcase %}
+        </span>
+      {% endif %}
+    </div>
 
-  {% comment %} تاج الفصل (صيفي/شتوي/خريفي/كاجوال) {% endcomment %}
-  {% if season_tag != '' %}
-    <span class="badge-pill badge-season">
-      {% case season_tag %}
-        {% when 'summer' %}☀️ صيفي
-        {% when 'winter' %}❄️ شتوي
-        {% when 'autumn' %}🍂 خريفي
-        {% when 'casual' %}👕 كاجوال
-      {% endcase %}
-    </span>
-  {% endif %}
-
-</div>
-
-    {% comment %} Wishlist {% endcomment %}
+    {% comment %} --- زرار Wishlist --- {% endcomment %}
     <button class="wishlist-btn" aria-label="إضافة للمفضلة">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20">
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
       </svg>
     </button>
 
-    {% comment %} Quick Add {% endcomment %}
+    {% comment %} --- زرار إضافة سريعة --- {% endcomment %}
     <div class="product-card__quick-add">
       <button
         class="btn btn-primary btn-full btn-sm"
@@ -75,27 +79,32 @@
         + أضف للعربة
       </button>
     </div>
-  </a>
+  </div>
 
-  <div class="product-card__info">
-    <h3 class="product-card__title">
-      <a href="{{ product.url }}">{{ product.title }}</a>
+  {% comment %} --- معلومات المنتج --- {% endcomment %}
+  <div class="product-card__info" style="padding: 15px 0;">
+    <h3 class="product-card__title" style="margin: 0 0 5px 0; font-size: 1rem;">
+      <a href="{{ product.url }}" style="text-decoration: none; color: inherit;">{{ product.title }}</a>
     </h3>
-    <p class="product-card__season">
-      {% if season_tag == 'summer' %}تشيرت صيفي
-      {% elsif season_tag == 'winter' %}تشيرت شتوي
-      {% elsif season_tag == 'autumn' %}تشيرت خريفي
+    
+    <p class="product-card__season" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">
+      {% if season_tag == 'summer' %}تيشيرت صيفي
+      {% elsif season_tag == 'winter' %}تيشيرت شتوي
+      {% elsif season_tag == 'autumn' %}تيشيرت خريفي
       {% elsif season_tag == 'casual' %}بنطلون كاجوال
-      {% else %}{{ product.type }}
+      {% else %}{{ product.type | default: 'ملابس' }}
       {% endif %}
     </p>
+
     <div class="product-card__price">
       {% if product.price == 0 %}
-        <span class="price-current price-free">مجاني للتجربة</span>
+        <span class="price-current price-free" style="color: var(--accent); font-weight: bold;">مجاني للتجربة</span>
       {% else %}
-        <span class="price-current">{{ product.price | money }}</span>
+        <span class="price-current" style="font-weight: bold; font-size: 1.1rem;">{{ product.price | money }}</span>
         {% if is_on_sale %}
-          <span class="price-original">{{ product.compare_at_price | money }}</span>
+          <span class="price-original" style="text-decoration: line-through; color: #999; font-size: 0.9rem; margin-right: 8px;">
+            {{ product.compare_at_price | money }}
+          </span>
         {% endif %}
       {% endif %}
     </div>

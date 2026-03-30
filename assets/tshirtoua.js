@@ -1,14 +1,46 @@
 /**
- * TSHIRTOUA — Main JS (tshirtoua.js)
+ * TSHIRTOUA — Main JS
  * Cart Drawer | Toast Notifications | Product interactions
- * كل الـ JavaScript بتاع الثيم
  */
+
+/* ============================================================
+   DARK MODE
+   ============================================================ */
+function initDarkMode() {
+  const toggleBtn = document.getElementById('dark-mode-toggle');
+  const icon = document.getElementById('dark-mode-icon');
+  if (!toggleBtn) return;
+
+  // Apply saved theme on init
+  const saved = localStorage.getItem('theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    if (icon) { icon.className = 'fa-solid fa-sun'; }
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    if (icon) { icon.className = 'fa-solid fa-moon'; }
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('theme', 'light');
+      if (icon) icon.className = 'fa-solid fa-moon';
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+      if (icon) icon.className = 'fa-solid fa-sun';
+    }
+  });
+}
 
 /* ============================================================
    NOTIFICATIONS (Toast System)
    ============================================================ */
 const TshirtouaNotify = (() => {
   let container;
+
   function init() {
     container = document.getElementById('toast-container');
     if (!container) {
@@ -21,15 +53,25 @@ const TshirtouaNotify = (() => {
 
   function create(type, title, message, duration = 4000) {
     if (!container) init();
-    // (استخدم نفس أكواد الـ Icons والألوان بتاعتك هنا)
+
+    const icons = {
+      success: '<i class="fa-solid fa-circle-check" style="color:var(--success);font-size:1.1rem;"></i>',
+      error:   '<i class="fa-solid fa-circle-xmark" style="color:var(--danger);font-size:1.1rem;"></i>',
+      info:    '<i class="fa-solid fa-circle-info" style="color:var(--text-muted);font-size:1.1rem;"></i>',
+      cart:    '<i class="fa-solid fa-bag-shopping" style="color:var(--accent);font-size:1.1rem;"></i>',
+    };
+
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;
     toast.innerHTML = `
+      <div style="margin-top:2px;">${icons[type] || icons.info}</div>
       <div class="toast-body">
         <div class="toast-title">${title}</div>
         ${message ? `<div class="toast-msg">${message}</div>` : ''}
       </div>
-      <div class="toast-close" onclick="this.parentElement.remove()">X</div>
+      <div class="toast-close" onclick="this.parentElement.remove()">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
     `;
     container.appendChild(toast);
     setTimeout(() => toast.remove(), duration);
@@ -39,6 +81,7 @@ const TshirtouaNotify = (() => {
     success: (title, msg) => create('success', title, msg),
     error:   (title, msg) => create('error',   title, msg),
     info:    (title, msg) => create('info',    title, msg),
+    cart:    (title, msg) => create('cart',    title, msg),
   };
 })();
 
@@ -46,7 +89,8 @@ const TshirtouaNotify = (() => {
    WISHLIST SYSTEM (LocalStorage)
    ============================================================ */
 const TshirtouaWishlist = (() => {
-  let items = JSON.parse(localStorage.getItem('tshirtoua_wishlist')) || [];
+  let items = [];
+  try { items = JSON.parse(localStorage.getItem('tshirtoua_wishlist')) || []; } catch(e) { items = []; }
 
   function init() {
     updateButtons();
@@ -54,7 +98,7 @@ const TshirtouaWishlist = (() => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         const productId = btn.dataset.productId;
-        if(productId) toggle(productId, btn);
+        if (productId) toggle(productId, btn);
       });
     });
   }
@@ -70,14 +114,13 @@ const TshirtouaWishlist = (() => {
       btn.classList.add('active');
       TshirtouaNotify.success('اتضاف للمفضلة ❤️', '');
     }
-    localStorage.setItem('tshirtoua_wishlist', JSON.stringify(items));
+    try { localStorage.setItem('tshirtoua_wishlist', JSON.stringify(items)); } catch(e) {}
   }
 
   function updateButtons() {
-    document.querySelectorAll('.wishlist-btn').forEach(btn => {
-      if (items.includes(btn.dataset.productId)) {
-        btn.classList.add('active');
-      }
+    document.querySelectorAll('.wishlist-btn[data-product-id]').forEach(btn => {
+      if (items.includes(btn.dataset.productId)) btn.classList.add('active');
+      else btn.classList.remove('active');
     });
   }
 
@@ -89,17 +132,15 @@ const TshirtouaWishlist = (() => {
    CART DRAWER
    ============================================================ */
 const TshirtouaCart = (() => {
-
   let overlay, drawer, itemsEl, subtotalEl, countEl, emptyEl;
-  let cartData = null;
 
   function init() {
-    overlay   = document.getElementById('cart-overlay');
-    drawer    = document.getElementById('cart-drawer');
-    itemsEl   = document.getElementById('cart-items');
-    subtotalEl= document.getElementById('cart-subtotal');
-    countEl   = document.getElementById('cart-count');
-    emptyEl   = document.getElementById('cart-empty');
+    overlay    = document.getElementById('cart-overlay');
+    drawer     = document.getElementById('cart-drawer');
+    itemsEl    = document.getElementById('cart-items');
+    subtotalEl = document.getElementById('cart-subtotal');
+    countEl    = document.getElementById('cart-count');
+    emptyEl    = document.getElementById('cart-empty');
 
     if (!overlay || !drawer) return;
 
@@ -110,7 +151,6 @@ const TshirtouaCart = (() => {
       el.addEventListener('click', open);
     });
 
-    // Load count on init
     refreshCount();
   }
 
@@ -122,16 +162,16 @@ const TshirtouaCart = (() => {
   }
 
   function close() {
-    overlay.classList.remove('open');
-    drawer.classList.remove('open');
+    overlay?.classList.remove('open');
+    drawer?.classList.remove('open');
     document.body.style.overflow = '';
   }
 
   async function refresh() {
     try {
-      cartData = await TshirtouaCartAPI.getCart();
-      render(cartData);
-    } catch(e) { /* handled in API layer */ }
+      const cart = await TshirtouaCartAPI.getCart();
+      render(cart);
+    } catch(e) { console.warn('Cart refresh failed', e); }
   }
 
   async function refreshCount() {
@@ -153,20 +193,18 @@ const TshirtouaCart = (() => {
 
   function render(cart) {
     if (!itemsEl) return;
-
     updateCount(cart.item_count || 0);
 
     if (!cart.items || cart.items.length === 0) {
       itemsEl.innerHTML = '';
-      if (emptyEl) emptyEl.classList.remove('hidden');
-      if (subtotalEl) subtotalEl.closest('.cart-drawer__footer').classList.add('hidden');
+      emptyEl?.classList.remove('hidden');
+      subtotalEl?.closest('.cart-drawer__footer')?.classList.add('hidden');
       return;
     }
 
-    if (emptyEl) emptyEl.classList.add('hidden');
+    emptyEl?.classList.add('hidden');
     const footer = subtotalEl?.closest('.cart-drawer__footer');
     if (footer) footer.classList.remove('hidden');
-
     if (subtotalEl) subtotalEl.textContent = formatMoney(cart.total_price);
 
     itemsEl.innerHTML = cart.items.map((item, i) => `
@@ -180,15 +218,17 @@ const TshirtouaCart = (() => {
           <div class="cart-item__footer">
             <div class="cart-item__price">${item.price === 0 ? 'مجاني' : formatMoney(item.price)}</div>
             <div class="cart-item__qty-controls" style="display:flex;align-items:center;gap:6px;">
-              <button onclick="TshirtouaCart.changeLine(${i+1}, ${item.quantity - 1})" class="btn btn-ghost btn-sm btn-icon" style="padding:4px;width:24px;height:24px;font-size:1rem;">−</button>
-              <span style="font-size:.85rem;font-weight:600;min-width:16px;text-align:center;">${item.quantity}</span>
-              <button onclick="TshirtouaCart.changeLine(${i+1}, ${item.quantity + 1})" class="btn btn-ghost btn-sm btn-icon" style="padding:4px;width:24px;height:24px;font-size:1rem;">+</button>
+              <button onclick="TshirtouaCart.changeLine(${i+1}, ${item.quantity - 1})" class="btn btn-ghost btn-sm btn-icon" style="padding:4px;width:28px;height:28px;font-size:1rem;" aria-label="Decrease">−</button>
+              <span style="font-size:.85rem;font-weight:700;min-width:18px;text-align:center;">${item.quantity}</span>
+              <button onclick="TshirtouaCart.changeLine(${i+1}, ${item.quantity + 1})" class="btn btn-ghost btn-sm btn-icon" style="padding:4px;width:28px;height:28px;font-size:1rem;" aria-label="Increase">+</button>
             </div>
           </div>
           <div class="cart-item__remove" onclick="TshirtouaCart.removeLine(${i+1})">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
-              <path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/>
+              <polyline points="3 6 5 6 21 6"/>
+              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+              <path d="M10 11v6"/><path d="M14 11v6"/>
+              <path d="M9 6V4h6v2"/>
             </svg>
             إزالة
           </div>
@@ -206,7 +246,7 @@ const TshirtouaCart = (() => {
       await refresh();
       TshirtouaNotify.cart('أضفنا للعربة! 🛒', productTitle || 'المنتج اتضاف بنجاح');
       open();
-    } catch (e) {
+    } catch(e) {
       TshirtouaNotify.error('مش قادر يضيف', 'فيه مشكلة، حاول تاني');
     } finally {
       const btn = document.querySelector(`[data-add-to-cart][data-variant-id="${variantId}"]`);
@@ -219,7 +259,7 @@ const TshirtouaCart = (() => {
       await TshirtouaCartAPI.removeItem(line);
       await refresh();
       TshirtouaNotify.info('اتشال', 'المنتج اتشال من العربة');
-    } catch (e) {}
+    } catch(e) {}
   }
 
   async function changeLine(line, qty) {
@@ -227,40 +267,43 @@ const TshirtouaCart = (() => {
     try {
       await TshirtouaCartAPI.updateLine(line, qty);
       await refresh();
-    } catch (e) {}
+    } catch(e) {}
   }
 
-  // Expose for global use
   window.TshirtouaCart = { init, open, close, addToCart, removeLine, changeLine, refresh };
-
   return window.TshirtouaCart;
 })();
 
 
 /* ============================================================
-   HEADER — scroll effect + mobile menu
+   HEADER — scroll + mobile menu
    ============================================================ */
 function initHeader() {
   const header = document.querySelector('.site-header');
   const toggle = document.getElementById('menu-toggle');
   const mobileNav = document.getElementById('mobile-nav');
 
-  window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 10);
-  }, { passive: true });
+  if (header) {
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 10);
+    }, { passive: true });
+  }
 
-  toggle?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isOpen = mobileNav.style.display === 'block';
-    mobileNav.style.display = isOpen ? 'none' : 'block';
-  });
+  if (toggle && mobileNav) {
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = mobileNav.style.display === 'block';
+      mobileNav.style.display = isOpen ? 'none' : 'block';
+    });
 
-  document.addEventListener('click', (e) => {
-    if (mobileNav && !mobileNav.contains(e.target) && !toggle.contains(e.target)) {
-      mobileNav.style.display = 'none';
-    }
-  });
+    document.addEventListener('click', (e) => {
+      if (!mobileNav.contains(e.target) && !toggle.contains(e.target)) {
+        mobileNav.style.display = 'none';
+      }
+    });
+  }
 }
+
 
 /* ============================================================
    PRODUCT PAGE — gallery, size, add to cart
@@ -283,7 +326,6 @@ function initProductPage() {
       if (opt.classList.contains('unavailable')) return;
       document.querySelectorAll('.size-option').forEach(o => o.classList.remove('active'));
       opt.classList.add('active');
-      // Update variant
       const variantId = opt.dataset.variantId;
       if (variantId) {
         const addBtn = document.getElementById('add-to-cart-btn');
@@ -323,47 +365,45 @@ function initProductPage() {
     await TshirtouaCart.addToCart(variantId, qty, title);
   });
 
-  // Wishlist
+  // Wishlist btn on product page
   document.querySelectorAll('.wishlist-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      btn.classList.toggle('active');
-      const added = btn.classList.contains('active');
-      TshirtouaNotify[added ? 'success' : 'info'](
-        added ? 'اتضاف للمفضلة ❤️' : 'اتشال من المفضلة',
-        ''
-      );
-    });
+    if (!btn.dataset.productId) {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        btn.classList.toggle('active');
+        const added = btn.classList.contains('active');
+        TshirtouaNotify[added ? 'success' : 'info'](
+          added ? 'اتضاف للمفضلة ❤️' : 'اتشال من المفضلة', ''
+        );
+      });
+    }
   });
 }
 
 
 /* ============================================================
-   COLLECTION — filter tabs
+   COLLECTION FILTERS
    ============================================================ */
 function initCollectionFilters() {
   document.querySelectorAll('.category-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
+    tab.addEventListener('click', function() {
       document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
+      this.classList.add('active');
 
-      const filter = tab.dataset.filter;
-      const products = document.querySelectorAll('.product-card[data-season]');
-      products.forEach(card => {
-        if (!filter || filter === 'all') {
-          card.style.display = '';
+      const filterValue = this.getAttribute('data-filter');
+      document.querySelectorAll('.product-card').forEach(product => {
+        if (filterValue === 'all') {
+          product.style.display = '';
         } else {
-          card.style.display = card.dataset.season === filter ? '' : 'none';
+          const category = product.getAttribute('data-category');
+          product.style.display = (category === filterValue) ? '' : 'none';
         }
       });
     });
   });
 
-  // Filter chips
   document.querySelectorAll('.filter-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      chip.classList.toggle('active');
-    });
+    chip.addEventListener('click', () => chip.classList.toggle('active'));
   });
 }
 
@@ -383,12 +423,10 @@ function initAuthForms() {
         ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
             <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
             <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
-            <line x1="1" y1="1" x2="23" y2="23"/>
-           </svg>`
+            <line x1="1" y1="1" x2="23" y2="23"/></svg>`
         : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-            <circle cx="12" cy="12" r="3"/>
-           </svg>`;
+            <circle cx="12" cy="12" r="3"/></svg>`;
     });
   });
 
@@ -399,12 +437,10 @@ function initAuthForms() {
     const btn = loginForm.querySelector('[type=submit]');
     const email    = loginForm.querySelector('[name=email]').value;
     const password = loginForm.querySelector('[name=password]').value;
-
     if (!email || !password) {
       TshirtouaNotify.error('بيانات ناقصة', 'ادخل الإيميل وكلمة السر');
       return;
     }
-
     btn.classList.add('btn-loading');
     try {
       const result = await TshirtouaCustomerAPI.login(email, password);
@@ -423,13 +459,9 @@ function initAuthForms() {
   const regForm = document.getElementById('register-form');
   regForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const btn = regForm.querySelector('[type=submit]');
-    const firstName = regForm.querySelector('[name=first_name]').value;
-    const lastName  = regForm.querySelector('[name=last_name]').value;
-    const email     = regForm.querySelector('[name=email]').value;
-    const password  = regForm.querySelector('[name=password]').value;
-    const confirm   = regForm.querySelector('[name=password_confirm]').value;
-
+    const btn      = regForm.querySelector('[type=submit]');
+    const password = regForm.querySelector('[name=password]').value;
+    const confirm  = regForm.querySelector('[name=password_confirm]').value;
     if (password !== confirm) {
       TshirtouaNotify.error('كلمة السر مش مطابقة', 'تأكد إن كلمتي السر متطابقتين');
       return;
@@ -438,9 +470,11 @@ function initAuthForms() {
       TshirtouaNotify.error('كلمة السر ضعيفة', 'لازم تكون 5 حروف على الأقل');
       return;
     }
-
     btn.classList.add('btn-loading');
     try {
+      const firstName = regForm.querySelector('[name=first_name]').value;
+      const lastName  = regForm.querySelector('[name=last_name]').value;
+      const email     = regForm.querySelector('[name=email]').value;
       const result = await TshirtouaCustomerAPI.register(firstName, lastName, email, password);
       if (result.success) {
         TshirtouaNotify.success('تم التسجيل! 🎉', 'اتفضل سجل دخولك دلوقتي');
@@ -456,7 +490,7 @@ function initAuthForms() {
 
 
 /* ============================================================
-   QUICK ADD (Product cards)
+   QUICK ADD
    ============================================================ */
 function initQuickAdd() {
   document.querySelectorAll('[data-quick-add]').forEach(btn => {
@@ -471,24 +505,115 @@ function initQuickAdd() {
 
 
 /* ============================================================
-   ANNOUNCEMENT MARQUEE — duplicate for seamless loop
+   ANNOUNCEMENT BAR MARQUEE
    ============================================================ */
 function initMarquee() {
-  const container = document.querySelector('.announcement-bar'); // الأب الرئيسي
+  const container = document.querySelector('.announcement-bar');
   const inner = document.querySelector('.announcement-bar__inner');
-  
   if (!container || !inner) return;
-
+  // Clone for seamless loop
   const clone = inner.cloneNode(true);
   container.appendChild(clone);
 }
 
-document.addEventListener('DOMContentLoaded', initMarquee);
 
 /* ============================================================
-   INIT ALL
+   LENIS SMOOTH SCROLL
    ============================================================ */
-document.addEventListener('DOMContentLoaded', () => {
+let lenis;
+function initLenis() {
+  if (typeof Lenis === 'undefined') return;
+  lenis = new Lenis({
+    duration: 1.1,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    direction: 'vertical',
+    gestureDirection: 'vertical',
+    smoothWheel: true,
+    lerp: 0.1,
+    wheelMultiplier: 1,
+    touchMultiplier: 2,
+    normalizeWheel: true,
+  });
+
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+}
+
+
+/* ============================================================
+   SINGLE PAGE APP (SPA) navigation
+   ============================================================ */
+document.addEventListener('click', async function(e) {
+  const link = e.target.closest('a');
+  if (!link) return;
+
+  let url;
+  try { url = new URL(link.href, window.location.origin); }
+  catch(err) { return; }
+
+  const isInternal     = url.origin === window.location.origin;
+  const isModified     = e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;
+  const hasTarget      = link.target && link.target !== '_self';
+  const isDownload     = link.hasAttribute('download');
+  const isAnchorOnly   = link.href.startsWith('#');
+  const isLocalization = url.pathname === '/localization'; // let forms handle it
+
+  if (!isInternal || isModified || hasTarget || isDownload || isAnchorOnly || isLocalization) return;
+
+  e.preventDefault();
+  try {
+    document.body.classList.add('is-loading');
+    const res = await fetch(url.pathname + url.search, {
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    });
+    const html = await res.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    // Use #main-content as SPA content target
+    const newContent  = doc.querySelector('#main-content');
+    const currContent = document.querySelector('#main-content');
+
+    if (!newContent || !currContent) {
+      window.location.href = url.href;
+      return;
+    }
+
+    currContent.innerHTML = newContent.innerHTML;
+    document.title = doc.title;
+    history.pushState({}, '', url.href);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    reInitThemeScripts();
+  } catch(err) {
+    window.location.href = url.href;
+  } finally {
+    document.body.classList.remove('is-loading');
+  }
+});
+
+window.addEventListener('popstate', async function() {
+  try {
+    const res = await fetch(window.location.pathname + window.location.search);
+    const html = await res.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const newContent  = doc.querySelector('#main-content');
+    const currContent = document.querySelector('#main-content');
+    if (newContent && currContent) {
+      currContent.innerHTML = newContent.innerHTML;
+      document.title = doc.title;
+      reInitThemeScripts();
+    }
+  } catch(err) {
+    window.location.reload();
+  }
+});
+
+/* Re-init scripts after SPA navigation */
+function reInitThemeScripts() {
   TshirtouaCart.init();
   TshirtouaWishlist.init();
   initHeader();
@@ -497,4 +622,63 @@ document.addEventListener('DOMContentLoaded', () => {
   initAuthForms();
   initQuickAdd();
   initMarquee();
+  initDarkMode();
+   initLangSwitcher();
+}
+
+/* ============================================================
+   LANGUAGE SWITCHER
+   ============================================================ */
+function initLangSwitcher() {
+  const btn      = document.getElementById('lang-btn');
+  const dropdown = document.getElementById('lang-dropdown');
+  if (!btn || !dropdown) return;
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = dropdown.classList.contains('open');
+    dropdown.classList.toggle('open', !isOpen);
+    btn.classList.toggle('open', !isOpen);
+  });
+
+  document.querySelectorAll('.lang-option').forEach(option => {
+    option.addEventListener('click', () => {
+      const code    = option.dataset.code;
+      const inputId = option.dataset.input;
+      const formId  = option.dataset.form;
+
+      const input = document.getElementById(inputId);
+      const form  = document.getElementById(formId);
+
+      if (input && form) {
+        input.value = code;
+        form.submit(); // ← Shopify بيعمل redirect تلقائي
+      }
+    });
+  });
+
+  document.addEventListener('click', () => {
+    dropdown.classList.remove('open');
+    btn.classList.remove('open');
+  });
+}
+function closeAllLangDropdowns() {
+  document.querySelectorAll('.lang-dropdown.open').forEach(d => d.classList.remove('open'));
+  document.querySelectorAll('.lang-btn.open').forEach(b => b.classList.remove('open'));
+}
+/* ============================================================
+   INIT ALL on DOM Ready
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  initDarkMode();
+  TshirtouaCart.init();
+  TshirtouaWishlist.init();
+  initHeader();
+  initProductPage();
+  initCollectionFilters();
+  initAuthForms();
+  initQuickAdd();
+  initMarquee();
+  initLenis();
+   initLangSwitcher();
 });
