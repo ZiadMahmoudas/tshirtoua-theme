@@ -129,6 +129,146 @@
             "origin_location_id_not_allowed": "တောင်းဆိုထားသော ပို့ဆောင်ရေးနည်းလမ်းများသည် အရင်းအမြစ်တည်နေရာကို ပံ့ပိုးမထားပါ။"
           }
         }
+      },
+      "shipping": {
+        "subscription_delivery_description": {
+          "prepaid_order_one_cycle": {
+            "one": "အပိုဝန်ဆောင်မှု %{count} ခုအတွက် %{shipping_price}",
+            "other": "ပစ္စည်းပို့ခ %{shipping_price}၊ ထပ်ပို့ရမည့်အကြိမ်အရေအတွက် %{count} (တစ်ကြိမ်ပို့ခ %{per_delivery_cost})"
+          },
+          "prepaid_order_one_cycle_delivery_not_included": {
+            "one": "ပို့ဆောင်မှု %{count}ခုအတွက် %{shipping_price}",
+            "other": "ပေးပို့မှု %{count} ခုအတွက် စုစုပေါင်း %{shipping_price} (%{per_delivery_cost} တစ်ကြိမ်ပေးပို့ခ)"
+          },
+          "prepaid_order_no_cycle": {
+            "one": "နောက်ထပ် %{count}ခုအတွက် %{shipping_price}၊ ထို့နောက် %{recurring_order_shipping_price}",
+            "other": "နောက်ထပ်ပို့ဆောင်မှု %{count} ခုအတွက် %{shipping_price} (%{per_delivery_cost})၊ ထို့နောက် %{recurring_order_shipping_price}"
+          },
+          "prepaid_order_no_cycle_delivery_not_included": {
+            "one": "ပေးပို့မှု %{count} ခုအတွက် %{shipping_price}၊ ထို့နောက် %{recurring_order_shipping_price} ဖြစ်ပါသည်",
+            "other": "ပို့ဆောင်မှု %{count} ခုအတွက် %{shipping_price} (ပို့ဆောင်မှုတစ်ခုလျှင် %{per_delivery_cost})၊ ပြီးနောက်မှာ %{recurring_order_shipping_price}"
+          },
+          "subscription_free_with_frequency_label": "ပို့ဆောင်ခအခမဲ့ %{delivery_frequency}",
+          "prepaid_delivery_frequency": {
+            "one": "%{count}ခုပေးပို့ရန်",
+            "other": "%{count} ပို့ဆောင်မှုအတွက်"
+          },
+          "subscription_delivery_frequency": {
+            "day": {
+              "one": "နေ့စဉ်",
+              "other": "%{count} ရက် တိုင်း"
+            },
+            "week": {
+              "one": "အပတ်စဉ်",
+              "other": "%{count} ပတ်တိုင်း"
+            },
+            "month": {
+              "one": "လတိုင်း",
+              "other": "လတိုင်း %{count}ခု"
+            },
+            "year": {
+              "one": "နှစ်သစ်ကူးအခါသမယမှာ",
+              "other": "နှစ်တိုင်း %{count} နှစ်"
+            }
+          },
+          "multiple_subscriptions_shipping_price_label": "ပို့ဆောင်ခ တစ်ခုစီအတွက် %{shipping_price}",
+          "prepaid_shipping_price_label": "ပေးပို့မှုတစ်ခုလျှင် %{shipping_price} × %{delivery_interval_count}",
+          "initial_order_discounted": "ပထမဆုံး ပို့ဆောင်ခ %{discounted_shipping_cost}၊ ပြီးနောက် %{frequency_description} ဖြစ်ပါမည်။",
+          "prepaid_initial_order_discounted": "ပထမဆုံး ပို့ဆောင်ခ %{discounted_shipping_price} %{prepaid_delivery_frequency}",
+          "prepaid_initial_order_discounted_with_per_delivery_price": "ပထမဆုံး ပို့ဆောင်ခ %{discounted_shipping_price} %{prepaid_delivery_frequency} (%{discounted_cost_per_delivery})",
+          "prepaid_initial_order_discounted_with_renewal": "ပထမဆုံး ပို့ဆောင်ခ %{discounted_shipping_price} %{prepaid_delivery_frequency} ဖြစ်ပြီး နောက်ပိုင်းတွင် %{shipping_price} %{billing_cycle} ဖြစ်ပါသည်။",
+          "prepaid_initial_order_discounted_with_per_delivery_price_and_renewal": "ပထမဆုံး ပို့ဆောင်ခသည် %{discounted_shipping_price} %{prepaid_delivery_frequency} (%{discounted_cost_per_delivery}) ဖြစ်ပြီး၊ ထို့နောက် %{shipping_price} %{billing_cycle} ဖြစ်သည်။",
+          "shipping_price_included": "ထည့်သွင်းထားသည်",
+          "recurring_order_shipping_price": "နောက်တွင် %{recurring_order_shipping_price} ပါရှိသည်။",
+          "first_order_shipping_price_included": "ပထမဆုံးမှာယူမှုပါဝင်ပြီး၊ ထို့နောက် %{recurring_order_shipping_price}",
+          "first_order_different_shipping_price": "%{first_order_shipping_price} (%{per_delivery_price} တစ်ခါပို့ခ)၊ နောက်တွင် %{recurring_order_shipping_price} ပါဝင်သည်",
+          "first_n_order_free": {
+            "one": "ပထမဆုံးမှာယူမှုအတွက် အခမဲ့ဖြစ်သည်။",
+            "other": "ပထမဆုံး အမှာစာ %{count} ခု အခမဲ့"
+          },
+          "free_for_first_n_order": {
+            "one": "ပထမအဆင့်အတွက်",
+            "other": "ပထမဆုံး %{count} မှာယူမှုများအတွက်"
+          }
+        },
+        "one_time_purchase_shipping": "တစ်ခါသုံး အားသွင်းစနစ်",
+        "duties_and_taxes_title": "အခွန်အခများ",
+        "shipping_information_required_notice": "ပို့ဆောင်ရေးအချက်အလက်များ လိုအပ်သည်။ {{link}}။",
+        "shipping_information_redirect_link": "သင်၏အချက်အလက်များကို ဤနေရာတွင် ရိုက်ထည့်ပါ။",
+        "loading_progressive_rates": "စျေးနှုန်းများ ထပ်မံရှာဖွေနေသည်...",
+        "no_other_methods_available": "အခြားနည်းလမ်းများ မရှိပါ",
+        "duties_and_taxes_options": {
+          "ddu_title": "ငွေပေးချေမှုကို ပစ္စည်းလက်ခံရရှိသည့်အချိန်တွင် ပြုလုပ်နိုင်ပါသည်။",
+          "ddu_caption": "ထပ်ဆောင်းအခကြေးငွေများ ကောက်ခံနိုင်ပါသည်။",
+          "ddp_title": "ယခုပေးချေပါ",
+          "ddp_caption": "ပေးပို့ချိန်တွင် အပိုအခကြေးငွေများမရှိပါ။"
+        },
+        "shipping_method_combinations": {
+          "combination": "%{rest} နှင့် %{current}"
+        },
+        "shipping_used_as_billing_notice": "ဤအရာအား သင်၏ဤမှာယူမှုအတွက် ဘီလ်ထုတ်ရန် လိပ်စာအဖြစ်လည်း အသုံးပြုသွားမည်ဖြစ်သည်။",
+        "address_update": "လိပ်စာမွမ်းမံပါ။",
+        "shipping_address_title": "သို့ပို့ဆောင်ပါ",
+        "shipping_address_rollup_accessibility_label": "ပို့ဆောင်ရေးလိပ်စာရွေးချယ်စရာများ",
+        "third_party_address_timeout": "လိပ်စာများကို တင်မရပါ။ ထပ်ကြိုးစားပါ သို့မဟုတ် အခြားလိပ်စာတစ်ခုကို အသုံးပြုပါ။",
+        "third_party_address_error": "လိပ်စာအလိုအလျောက်ဖြည့်သွင်းမှုတွင် အမှားတစ်ခု ဖြစ်ပေါ်ပါသည်။ ကျေးဇူးပြု၍ အောက်ဖော်ပြပါ လိပ်စာကို ကိုယ်တိုင်ရိုက်ထည့်ပါ။",
+        "third_party_payment_timeout": "ငွေပေးချေမှုနည်းလမ်းများ တင်၍မရပါ။ ထပ်ကြိုးစားကြည့်ပါ သို့မဟုတ် အခြားငွေပေးချေမှုနည်းလမ်းတစ်ခုကို အသုံးပြုပါ။",
+        "third_party_payment_error": "ငွေပေးချေမှုရွေးချယ်စရာကို တင်နေစဥ် အမှားတစ်ခု ဖြစ်ပေါ်ခဲ့သည်။ ကျေးဇူးပြု၍ အခြားငွေပေးချေမှုနည်းလမ်းကို အသုံးပြုပါ။",
+        "add_address": "အခြားခေါင်းစဉ်တစ်ခု အသုံးပြုပါ",
+        "add_delivery_instructions": "ပို့ဆောင်ရေးလမ်းညွှန်ချက်များ ထည့်သွင်းပါ။",
+        "edit": "ပြင်ဆင်ရန်",
+        "delete": "ဖျက်မည်",
+        "back": "နေ့လည်စာ",
+        "address_more": "ဤလိပ်စာအတွက် အခြားလုပ်ဆောင်မှုများ",
+        "address_edit": "လိပ်စာပြင်ဆင်ရန်",
+        "address_delete": "လိပ်စာဖျက်မည်",
+        "address_confirm": "သင့်အကောင့်မှ ဤလိပ်စာကို ဖျက်လိုကြောင်း သေချာပါသလား။",
+        "address_default": "ပုံမှန်အဖြစ် သတ်မှတ်ရန်",
+        "address_form": {
+          "add_address": "ခေါင်းစဉ်ထည့်ပါ",
+          "save": "သိမ်းဆည်းရန်",
+          "cancel": "ဖျက်သိမ်းမည်",
+          "edit": "ခေါင်းစဉ်ပြင်ဆင်ခြင်း",
+          "update": "အပြောင်းအလဲများ သိမ်းဆည်းရန်",
+          "generic_error": "ခင်ဗျားလိပ်စာကို သိမ်းဆည်းနေတုန်း ပြဿနာတစ်ခုပေါ်လာပါတယ်။ နောက်တစ်ကြိမ် ထပ်ကြိုးစားကြည့်ပါ။",
+          "one_time_address_subtitle": "ဤတောင်းဆိုမှုအတွက် တစ်ခါသုံးလိပ်စာကို အသုံးပြုပါ။"
+        },
+        "different_shipping_method_summary": "ရရှိနိုင်သော ပို့ဆောင်မှုနည်းလမ်းများကို ကြည့်ရန် အခြားလိပ်စာတစ်ခုကို ထည့်ပါ။",
+        "invalid_shipping_method_summary": "ရရှိနိုင်သော ပို့ဆောင်မှုနည်းလမ်းများကို ကြည့်ရန် မှန်ကန်သော ပို့ဆောင်မည့်လိပ်စာကို ထည့်ပါ။",
+        "invalid_shipping_method_summary_selected": "ရရှိနိုင်သော ပို့ဆောင်ရေးနည်းလမ်းများကို ကြည့်ရှုရန် အခြားသော ပို့ဆောင်ရေးလိပ်စာကို ရွေးချယ်ပါ။",
+        "method_summary": {
+          "incomplete_address_entered": "ရနိုင်သော ပို့ဆောင်မှုနည်းလမ်းများကို ကြည့်ရန် ပို့ဆောင်ရေးလိပ်စာအပြည့်အစုံကို ထည့်ပါ",
+          "incomplete_address_selected": "ရရှိနိုင်သော ပို့ဆောင်ရေးနည်းလမ်းများကို ကြည့်ရှုရန် အပြည့်အစုံပို့ဆောင်မည့် လိပ်စာကို ထည့်သွင်းပါ။"
+        },
+        "local_pickup": {
+          "search_address": "လိပ်စာရှာပါ",
+          "rollup_title": "တွေ့ဆုံရာနေရာ",
+          "rollup_accessibility_label": "လက်ခံရရှိမည့်နေရာ ရွေးချယ်စရာများ"
+        },
+        "missing_shipping_address": "ပို့ဆောင်ရေးလိပ်စာ ပျောက်ဆုံးနေသည်",
+        "split_shipping_merchandise_quantity_label_standard": "ပစ္စည်း %{quantity}ခု",
+        "split_shipping_merchandise_quantity_label_additional": "နောက်ထပ် %{quantity}",
+        "split_shipping_merchandise_shipment_number": "ပို့ဆောင်မှု %{number}/%{total}",
+        "pre_order_ships_now": "သင်္ဘောတွေလာပြီ။",
+        "pre_order_ships_later": "နောက်မှ ပို့ပါ",
+        "pre_order_ships_date": "%{date} ရက်နေ့တွင် ထွက်ခွာသည့် သင်္ဘောများ",
+        "split_shipping_shipped_by_shop": "%{shop_name} မှ ပို့ဆောင်သည်",
+        "split_shipping_multiple_shipment_label": "ပို့ဆောင်မှုများစွာ",
+        "split_shipping_shipping_label": "ဟန်ပန်",
+        "split_shipping_shipment_notice": "သင်၏အော်ဒါသည် %{quantity_shipments} တွင် ရောက်ရှိမည်ဖြစ်ပါသည်။",
+        "split_shipping_first_shipment_notice": "သင်၏ ပထမဆုံး အော်ဒါသည် %{quantity_shipments} ရောက်ရှိပါမည်။",
+        "split_shipping_multiple_shipment_quantity_label": "%{quantity} ပို့ဆောင်မှု",
+        "split_shipping_multiple_shipment_notice": "သင်၏မှာယူမှုအား ပို့ဆောင်မှုများစွာဖြင့် ပေးပို့ပါမည်။",
+        "split_shipping_multiple_shipment_notice_one_time_purchase": "သင့်မှာယူမှုပစ္စည်းများကို အပိုင်း %{quantity} ပိုင်းခွဲ၍ ပို့ဆောင်ပါမည်။",
+        "split_shipping_more_shipping_options": "ပို့ဆောင်ရေးရွေးချယ်စရာများ ထပ်မံရရှိနိုင်ပါသည်။",
+        "split_shipping_shipment_number": "ကုန်စည်ပို့ဆောင်မှုအမှတ် %{number}",
+        "split_shipping_merchandise_quantity_label_inline_primary": "ပမာဏ- %{quantity}"
+      },
+      "payment": {
+        "no_real_orders_dev_store": "ဤစတိုးဆိုင်သည် တကယ့် မှာယူမှုများ သို့မဟုတ် ငွေပေးချေမှုများကို လက်ခံနိုင်ခြင်း မရှိပါ။",
+        "waiting_on_payment_methods": "ရရှိနိုင်သော ငွေပေးချေမှုနည်းလမ်းများကို ရယူနေသည်...",
+        "apple_pay_payment_error": "ငွေပေးချေမှု မပြီးမြောက်ပါ။ ကျေးဇူးပြု၍ ပြန်လည်ကြိုးစားပါ သို့မဟုတ် အခြားငွေပေးချေမှုနည်းလမ်းကို အသုံးပြုပါ။",
+        "taxes_not_included": "အခွန်များ မပါဝင်ပါ"
       }
     }
   },
