@@ -131,5 +131,165 @@
         }
       }
     }
+  },
+  "customer_accounts": {
+    "active_inspector": {
+      "extension": {
+        "remove": "တိုးချဲ့မှုကို ဖယ်ရှားမည်",
+        "move_down_tooltip": "နောက်နေရာသို့ သွားပါ",
+        "move_up_tooltip": "ယခင်တည်နေရာသို့ ရွှေ့ရန်",
+        "remove_tooltip": "ဖယ်ရှားပါ။"
+      }
+    },
+    "editor": {
+      "link_new_tab_confirmation": "ဤလင့်ခ်ကို အယ်ဒီတာအတွင်း၌ ဖွင့်၍ မရပါ။ ၎င်းကို ဝင်းဒိုးအသစ်တစ်ခုတွင် ({{resolved_to_link}}) ဖွင့်ပါမည်။ ဆက်လက်လုပ်ဆောင်ရန် OK ကို နှိပ်ပါ။"
+    },
+    "settings": {
+      "title": "ပြင်ဆင်သတ်မှတ်မှုများ",
+      "loading_accessibility_message": "ဆက်တင်များ စာမျက်နှာကို တင်နေသည်",
+      "log_out_everywhere": {
+        "title": "နေရာအားလုံးမှ ထွက်ရန်",
+        "description": "သင့်စက်ပျောက်ဆုံးပါက သို့မဟုတ် လုံခြုံရေးဆိုင်ရာ စိုးရိမ်ပူပန်မှုများ ရှိပါက သင့်အကောင့်၏ လုံခြုံရေးကို သေချာစေရန် စက်ပစ္စည်းအားလုံးမှ ထွက်လိုက်ပါ။",
+        "button": "စက်ပစ္စည်းအားလုံးမှ ထွက်ရန်",
+        "warning_message": "ဤစက်တွင်လည်း အကောင့်မှထွက်ပါမည်။"
+      }
+    },
+    "shop_ads": {
+      "title": "သင်ကြိုက်နှစ်သက်နိုင်သည့် အခြားထုတ်ကုန်များ",
+      "subtitle": "အချိန်အကန့်အသတ်ဖြင့်သာ ရရှိနိုင်ပါသည်။",
+      "button": "စတိုးဆိုင်ကိုရှာဖွေပါ",
+      "previous_button": "ယခင်",
+      "next_button": "နောက်တစ်ခု"
+    },
+    "knowledge_base": {
+      "self_serve_returns": {
+        "enabled": "ဖောက်သည်များက ပစ္စည်းပြန်အမ်းခြင်းကို ၎င်းတို့ကိုယ်တိုင် တောင်းဆိုပြီး စီမံခန့်ခွဲနိုင်သည်။",
+        "disabled": "ပြန်အမ်းငွေတောင်းခံရန်အတွက် ဖောက်သည်များသည် ကုန်သည်ထံ ဆက်သွယ်ရမည်။"
+      }
+    },
+    "subscriptions": {
+      "update_payment_instrument": {
+        "title": "ငွေပေးချေမှုနည်းလမ်း ပြောင်းလဲရန်",
+        "loading": "ငွေပေးချေမှုနည်းလမ်းများ တင်နေသည်",
+        "no_payment_methods_available": "ပေးချေနိုင်သည့်နည်းလမ်းများ မရှိပါ",
+        "select_new_payment_method": "ငွေပေးချေမှုနည်းလမ်းအသစ်ကို ရွေးပါ",
+        "current_method": "လက်ရှိ",
+        "cancel": "ဖျက်သိမ်းမည်",
+        "save": "သိမ်းဆည်းရန်",
+        "success": "ငွေပေးချေမှုနည်းလမ်းကို အပ်ဒိတ်လုပ်ထားပါသည်",
+        "use_new_payment_method": "+ ငွေပေးချေမှုနည်းလမ်းအသစ်ကို အသုံးပြုပါ။"
+      }
+    },
+    "intents": {
+      "subscription_replace_payment_method": {
+        "card_number": "ကတ်နံပါတ်",
+        "title": "ငွေပေးချေမှုနည်းလမ်း ပြောင်းလဲရန်",
+        "replace_with": "ဖြင့် အစားထိုးပါ။",
+        "add_new_payment_method": "အသစ်ထည့်ရန်",
+        "save_button": "သိမ်းဆည်းရန်",
+        "close_button": "ပိတ်ရန်",
+        "loading": "ငွေပေးချေမှုနည်းလမ်းပြောင်းလဲခြင်း ပေါ့ပ်အပ်ကို တင်နေသည်",
+        "success": "ငွေပေးချေမှုနည်းလမ်းကို အပ်ဒိတ်လုပ်ထားပါသည်။",
+        "invalid_subscription_contract": "စာရင်းသွင်းမှုရှာမတွေ့ပါ။",
+        "expiry_date": "သက်တမ်းကုန်ဆုံးရက်- {{expiryDate}}",
+        "edit_current_payment_method": "လက်ရှိငွေပေးချေမှုနည်းလမ်းကို ပြင်ဆင်ရန်",
+        "edit_selected_payment_method": "သတ်မှတ်ထားသော ငွေပေးချေမှုနည်းလမ်းကို ပြင်ဆင်ရန်"
+      }
+    },
+    "sign_in": {
+      "brand_logo_alt_text": "%{shop_name} ၏လိုဂို",
+      "processing": "ဆောင်ရွက်နေပါသည်...",
+      "step_one": {
+        "page_title": "အကောင့်ဝင်ရန် - %{shop_name}",
+        "heading": "လော့ဂ်အင်ဝင်မည်",
+        "subheading": "သင့်အီးမေးလ်လိပ်စာထည့်ပါ၊ ထို့နောက် စိစစ်အတည်ပြုကုဒ် ပို့ပေးပါမည်",
+        "subheading_with_sign_in_options": "လော့ဂ်အင်ဝင်ရန် သို့မဟုတ် အကောင့်အသစ်တစ်ခုဖန်တီးရန်",
+        "input_field_label": "အီးမေးလ်",
+        "button": "ဆက်လုပ်ပါ",
+        "or": "ဒါမှမဟုတ်",
+        "consent_agreement": "ဆက်လက်လုပ်ဆောင်ခြင်းဖြင့်၊ သင်သည် %{terms} ကို သဘောတူညီပါသည်။"
+      },
+      "step_two": {
+        "page_title": "ကုဒ်ထည့်ပါ - %{shop_name}",
+        "heading": "ကုဒ်ထည့်ပါ",
+        "subheading": "%{email} သို့ ပို့လိုက်ပါပြီ။",
+        "restart_link": "အခြားအီးမေးလ်တစ်ခုဖြင့် ဝင်ရောက်ပါ။",
+        "input_field_label": "ဂဏန်း ၆ လုံးပါသောကုဒ်",
+        "button": "ပေးပို့ရန်"
+      },
+      "error": {
+        "invalid": {
+          "invalid_email": "မှန်ကန်သောအီးမေးလ်လိပ်စာတစ်ခု ထည့်ပါ",
+          "invalid_code": "မှန်ကန်သော ဂဏန်း ၆ လုံးပါသောကုဒ်ကို ထည့်သွင်းပါ။"
+        }
+      }
+    },
+    "payment_methods": {
+      "add_payment_method": {
+        "billing_address": {
+          "add_billing_address_button": "အသစ်ထည့်ရန်",
+          "add_billing_address_button_accessibility_label": "ဘေလ်ထုတ်ယူရန်လိပ်စာအသစ်ထည့်ရန်",
+          "choose_billing_address_from_list_button": "စာရင်းထဲမှ ရွေးပါ။",
+          "choose_billing_address_from_list_button_accessibility_label": "စာရင်းမှ ငွေပေးချေမှုလိပ်စာကို ရွေးချယ်ပါ။",
+          "missing_billing_address_error_message": "ကျေးဇူးပြု၍ ဘီလ်ထုတ်ရန် လိပ်စာကို ရွေးချယ်ပါ။",
+          "default_checkbox": "မူရင်းငွေပေးချေမှုနည်းလမ်းအဖြစ် သတ်မှတ်ပါ"
+        },
+        "subscription_contracts": {
+          "title": "ထပ်ခါတလဲလဲ ပြုလုပ်သော မှာယူမှုများအတွက် ငွေပေးချေမှုနည်းလမ်းကို အသုံးပြုပါ",
+          "more_items": {
+            "one": "အပိုပစ္စည်းများ- {{count}}",
+            "other": "နောက်ထပ် ထုတ်ကုန် {{count}} ခု"
+          },
+          "product_count": {
+            "one": "ထုတ်ကုန် {{count}} ခု",
+            "other": "{{count}} ထုတ်ကုန်များ"
+          },
+          "product_details": "ကုန်ပစ္စည်းအသေးစိတ်",
+          "load_more": "နောက်ထပ်တင်ရန်"
+        },
+        "updating_contracts": {
+          "one": "စာချုပ် {{count}} ခုအား မွမ်းမံနေသည်...",
+          "other": "စာချုပ် {{count}} ခုကို အပ်ဒိတ်လုပ်နေသည်..."
+        },
+        "contracts_updated": {
+          "one": "စာရင်းသွင်းမှု စာချုပ် {{count}} ခုကို အောင်မြင်စွာ အပ်ဒိတ်လုပ်ပြီးပါပြီ။",
+          "other": "စာချုပ် {{count}} ခုကို အောင်မြင်စွာ အပ်ဒိတ်လုပ်ပြီးပါပြီ။"
+        },
+        "contracts_update_failed": "စာရင်းသွင်းမှုအချို့ကို အပ်ဒိတ်လုပ်ရန် ပျက်ကွက်ခဲ့ပါသည်။",
+        "subscription_contracts_updated": "စာရင်းသွင်းမှု {{total}} ခုမှ {{succeeded}} ခု အပ်ဒိတ်လုပ်ပြီးပါပြီ။",
+        "invalid_wallet_type_error": "ပိုက်ဆံအိတ်အမျိုးအစား မမှန်ကန်ပါ။"
+      },
+      "three_d_secure": {
+        "title": "အတည်ပြုခြင်း ၃-ဖက်မြင်",
+        "verification_failed": "သင်၏ ငွေပေးချေမှုကို အတည်မပြုနိုင်ပါ။ ကျေးဇူးပြု၍ ထပ်မံကြိုးစားပါ သို့မဟုတ် အခြားငွေပေးချေမှုနည်းလမ်းကို အသုံးပြုပါ။"
+      }
+    },
+    "payment_method_brands": {
+      "visa": "ဗီဇာ",
+      "mastercard": "မာစတာကတ်",
+      "americanexpress": "အမေရိကန် အိတ်စပရက်စ်",
+      "discover": "ရှာဖွေ",
+      "dinersclub": "ဒိုင်နားစ်ကလပ်",
+      "jcb": "ဂျေစီပီ",
+      "elo": "အီလို",
+      "visaelectron": "အီလက်ထရောနစ်ဗီဇာ",
+      "maestro": "သံစုံတီးဝိုင်းခေါင်းဆောင်",
+      "dankort": "ဒန်ကော့",
+      "hipercard": "ဟိုက်ပါကတ်",
+      "unionpay": "ယူနီယံပေ့",
+      "laser": "လေဆာ",
+      "shoppay": "ဆိုင်ကယ်",
+      "paypal": "ပေးပယ်",
+      "storecredit": "စတိုးလက်ကျန်",
+      "bogus": "အတုအယောင်"
+    },
+    "privacy_banner": {
+      "cookie_preferences_link": "ကွတ်ကီးရွေးချယ်မှုများ"
+    },
+    "ui_components": {
+      "clear": "ရှင်းလင်းပြတ်သားသည်။",
+      "clipboardCopied": "ကူးယူပြီးပါပြီ။",
+      "clipboardFailedToCopy": "ကူးယူမှု မအောင်မြင်ပါ"
+    }
   }
 }
