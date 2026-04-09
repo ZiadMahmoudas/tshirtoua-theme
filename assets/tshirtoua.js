@@ -611,47 +611,37 @@ function initLenis() {
 /* ============================================================
    LANGUAGE SWITCHER
    ============================================================ */
-function initLangSwitcher() {
-  const btn      = document.getElementById('lang-btn');
-  const dropdown = document.getElementById('lang-dropdown');
-  if (!btn || !dropdown) return;
+document.addEventListener('DOMContentLoaded', () => {
+  const langBtn = document.getElementById('lang-btn');
+  const langDropdown = document.getElementById('lang-dropdown');
 
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isOpen = dropdown.classList.contains('open');
-    dropdown.classList.toggle('open', !isOpen);
-    btn.classList.toggle('open', !isOpen);
-    btn.setAttribute('aria-expanded', String(!isOpen));
-  });
+  if (langBtn && langDropdown) {
+    langBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      langDropdown.classList.toggle('open');
+    });
 
-  document.querySelectorAll('.lang-option').forEach(option => {
-    option.addEventListener('click', () => {
-      const code    = option.dataset.code;
-      const inputId = option.dataset.input;
-      const formId  = option.dataset.form;
+    document.addEventListener('click', () => {
+      langDropdown.classList.remove('open');
+    });
+  }
+
+  document.querySelectorAll('.lang-option, .mobile-lang-btn').forEach((item) => {
+    item.addEventListener('click', () => {
+      const code = item.dataset.code;
+      const inputId = item.dataset.input;
+      const formId = item.dataset.form;
+
       const input = document.getElementById(inputId);
-      const form  = document.getElementById(formId);
-      if (input && form) { input.value = code; form.submit(); }
+      const form = document.getElementById(formId);
+
+      if (input && form && code) {
+        input.value = code;
+        form.submit();
+      }
     });
   });
-
-  document.querySelectorAll('.mobile-lang-btn').forEach(mBtn => {
-    mBtn.addEventListener('click', () => {
-      const code    = mBtn.dataset.code;
-      const inputId = mBtn.dataset.input;
-      const formId  = mBtn.dataset.form;
-      const input = document.getElementById(inputId);
-      const form  = document.getElementById(formId);
-      if (input && form) { input.value = code; form.submit(); }
-    });
-  });
-
-  document.addEventListener('click', () => {
-    dropdown.classList.remove('open');
-    btn.classList.remove('open');
-    btn.setAttribute('aria-expanded', 'false');
-  });
-}
+});
 
 /* ============================================================
    SPA NAVIGATION — safe, whitelist-only approach
@@ -756,7 +746,6 @@ function reInitThemeScripts() {
   initQuickAdd();
   initMarquee();
   initDarkMode();
-  initLangSwitcher();
 }
 
 /* ============================================================
@@ -773,5 +762,4 @@ document.addEventListener('DOMContentLoaded', () => {
   initQuickAdd();
   initMarquee();
   initLenis();
-  initLangSwitcher();
 });

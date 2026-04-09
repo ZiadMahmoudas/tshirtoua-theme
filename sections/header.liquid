@@ -44,24 +44,24 @@
       </button>
 
       <ul class="lang-dropdown" id="lang-dropdown" role="listbox">
-        {% for language in localization.available_languages %}
-          {% unless language.iso_code == 'my' %}
-            <li class="lang-option {% if language.iso_code == localization.language.iso_code %}selected{% endif %}"
-                role="option"
-                data-code="{{ language.iso_code }}"
-                data-input="HeaderLocaleInput"
-                data-form="HeaderLanguageForm">
-              <span class="lang-flag">
-                {% case language.iso_code %}
-                  {% when 'ar' %}🇪🇬
-                  {% when 'en' %}🇬🇧
-                  {% else %}🌐
-                {% endcase %}
-              </span>
-              <span class="lang-label">{{ language.endonym_name | capitalize }}</span>
-            </li>
-          {% endunless %}
-        {% endfor %}
+     {% for language in localization.available_languages %}
+  {% if language.iso_code == 'ar' or language.iso_code == 'en' %}
+    <li class="lang-option {% if language.iso_code == localization.language.iso_code %}selected{% endif %}"
+        role="option"
+        data-code="{{ language.iso_code }}"
+        data-input="HeaderLocaleInput"
+        data-form="HeaderLanguageForm">
+      <span class="lang-flag">
+        {% case language.iso_code %}
+          {% when 'ar' %}🇪🇬
+          {% when 'en' %}🇬🇧
+          {% else %}🌐
+        {% endcase %}
+      </span>
+      <span class="lang-label">{{ language.endonym_name | capitalize }}</span>
+    </li>
+  {% endif %}
+{% endfor %}
       </ul>
     {% endform %}
   </div>
@@ -126,22 +126,24 @@
             <input type="hidden" name="locale_code" id="MobileLocaleInput"
                    value="{{ localization.language.iso_code }}">
             <div class="mobile-lang-options">
-              {% for language in localization.available_languages %}
-                <button type="button"
-                        class="mobile-lang-btn {% if language.iso_code == localization.language.iso_code %}active{% endif %}"
-                        data-code="{{ language.iso_code }}"
-                        data-input="MobileLocaleInput"
-                        data-form="MobileLanguageForm">
-                  <span class="lang-flag">
-                    {% case language.iso_code %}
-                      {% when 'ar' %}🇪🇬
-                      {% when 'en' %}🇬🇧
-                      {% else %}🌐
-                    {% endcase %}
-                  </span>
-                  <span>{{ language.endonym_name | capitalize }}</span>
-                </button>
-              {% endfor %}
+             {% for language in localization.available_languages %}
+  {% if language.iso_code == 'ar' or language.iso_code == 'en' %}
+    <button type="button"
+            class="mobile-lang-btn {% if language.iso_code == localization.language.iso_code %}active{% endif %}"
+            data-code="{{ language.iso_code }}"
+            data-input="MobileLocaleInput"
+            data-form="MobileLanguageForm">
+      <span class="lang-flag">
+        {% case language.iso_code %}
+          {% when 'ar' %}🇪🇬
+          {% when 'en' %}🇬🇧
+          {% else %}🌐
+        {% endcase %}
+      </span>
+      <span>{{ language.endonym_name | capitalize }}</span>
+    </button>
+  {% endif %}
+{% endfor %}
             </div>
           {% endform %}
         </div>
