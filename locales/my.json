@@ -1,0 +1,135 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "featured_products": {
+      "view_all": "အားလုံးကြည့်ရန်"
+    }
+  },
+  "shopify": {
+    "sentence": {
+      "last_word_connector": "၊ နှင့်"
+    },
+    "checkout": {
+      "general": {
+        "page_title": "ငွေပေးချေမှု",
+        "error_page_title": "မှားယွင်းမှု",
+        "skip_to_content": "အကြောင်းအရာသို့ သွားရန်",
+        "breadcrumb": "လမ်းကြောင်းရှာဖွေခြင်း",
+        "continue_button_label": "ဆက်လုပ်ပါ",
+        "complete_purchase_button_label": "အော်ဒါပြီးပါပြီ။",
+        "pay_now_button_label": "ယခုပေးချေပါ",
+        "authenticate_purchase_button_label": "ငွေပေးချေမှုမှတ်တမ်း",
+        "edit_link_label": "ပြုပြင်မွမ်းမံခြင်း",
+        "all_rights_reserved": "မူပိုင်ခွင့်များ ရရှိပြီး %{shop_name}",
+        "print_policies_link_label": "ပုံနှိပ်ရန်",
+        "cart": "ဈေးဝယ်လှည်း",
+        "close_modal_label": "ပိတ်ရန်",
+        "close_notice_label": "ပိတ်ရန်",
+        "expand_notice_label": "နောက်ထပ်ပြရန်",
+        "continue_to_shipping_method": "ပို့ဆောင်မှုကို ခြေရာခံပါ။",
+        "continue_to_payment_method": "ငွေပေးချေမှုအခြေအနေ စစ်ဆေးရန်",
+        "continue_to_review": "အော်ဒါပြန်စစ်ရန်",
+        "back_to_cart": "စျေးဝယ်လှည်းသို့ ပြန်သွားရန်",
+        "back_to_contact_information": "အချက်အလက်သို့ ပြန်သွားရန်",
+        "back_to_shipping_method": "သင်္ဘောတင်ရန် ပြန်ပို့ခြင်း",
+        "back_to_payment_method": "ငွေပေးချေမှုသို့ ပြန်သွားမည်",
+        "choose_shipping_method": "ပို့ဆောင်မှုနည်းလမ်း ရွေးချယ်ပါ",
+        "choose_payment_method": "ငွေပေးချေမှုနည်းလမ်းကို ရွေးချယ်ပါ။",
+        "choose_billing_address": "ဘေလ်ခေါင်းစဉ် ရွေးပါ။",
+        "contact_us_html": "ပိုမိုသိရှိလိုပါက ကျွန်ုပ်တို့ထံ ဆက်သွယ်ပါ။",
+        "autocomplete_title": "အကြံပြုချက်များ",
+        "autocomplete_single_item": "ပစ္စည်းတစ်မျိုး ရရှိနိုင်ပါပြီ။",
+        "autocomplete_multi_item": "ပစ္စည်း {{number}} ခု ရနိုင်ပါသည်",
+        "autocomplete_close": "အကြံပြုချက်များကိုပိတ်ပါ",
+        "forwarding_indicator": {
+          "new_window": "ဝင်းဒိုးအသစ်တွင် ဖွင့်ရန်။",
+          "external": "ပြင်ပဝက်ဘ်ဆိုက်ကို ဖွင့်ပါမည်။",
+          "external_and_new_window": "ပြင်ပဝဘ်ဆိုဒ်ကို ဝင်းဒိုးအသစ်တစ်ခုတွင် ဖွင့်သည်။"
+        },
+        "checkout_context": {
+          "step_one": "%{shop_name} - ငွေပေးချေမှု ပြီးဆုံးခြင်း"
+        },
+        "tooltip_accessibility_label": "အချက်အလက်များထပ်မံသိရှိလိုပါက",
+        "qr_code": "QR ကုဒ်",
+        "errors": {
+          "only_empty_terms_accepted": "ဤမူဝါဒသည် အလွတ်အသုံးအနှုန်းများကိုသာ ခွင့်ပြုသည်။",
+          "session_identifier_not_unique_error": "သင်၏ မှာယူမှုတွင် တစ်စုံတစ်ခု မှားယွင်းနေပါသည်။ ကျေးဇူးပြု၍ ပြန်လည်မှာယူကြည့်ပါ။",
+          "line_item_limit_reached": "လိုင်းပစ္စည်းအရေအတွက် အများဆုံးသို့ ရောက်ရှိသွားပါပြီ။",
+          "session_is_already_finished": "ဤငွေပေးချေမှုကို အပြီးသတ်ပြီးဖြစ်သည်။",
+          "merchandise": {
+            "only_value_constraint": "ကုန်စည်များ ထည့်သွင်းရာတွင် တိကျသော ကိန်းဂဏန်းများသာ ခွင့်ပြုသည်။",
+            "merchandise_not_found": "ပစ္စည်းမရှိပါ။",
+            "merchandise_variant_not_found": "ထုတ်ကုန်ပုံသေနည်းမတွေ့ပါ။",
+            "merchandise_not_applicable": "ဤပစ္စည်းအတွက် အစားထိုးပစ္စည်းကို ဝယ်ယူ၍မရပါ။",
+            "mixed_currencies": "စျေးဝယ်လှည်းတွင် ငွေကြေးအမျိုးမျိုးဖြင့် ရွေးချယ်စရာများ ပါရှိသည်။",
+            "bundle_products_not_supported_for_b2b": "ဤတည်နေရာအတွက် B2B အမှာစာများသို့ စုပေါင်းပစ္စည်းများ ထည့်၍မရပါ။",
+            "gift_card_quantity_mismatch": "လက်ဆောင်ကတ်ကုဒ်များကို သတ်မှတ်သည့်အခါ ကုန်ပစ္စည်းပမာဏသည် လက်ဆောင်ကတ်ကုဒ်အရေအတွက်နှင့် ကိုက်ညီရပါမည်။",
+            "gift_card_not_supported": "ဤငွေပေးချေမှုတွင် လက်ဆောင်ကတ်များကို ပံ့ပိုးမထားပါ။",
+            "gift_card_not_unique": "ကုဒ်နံပါတ် {{code}} ပါသည့် လက်ဆောင်ကတ်သည် ဤငွေပေးချေမှုတွင် အကြိမ်တစ်ကြိမ်ထက်ပို၍ ပေါ်နေပါသည်။ နှိုင်းယှဥ်ခြင်းမပြုမီ ကုဒ်များကို ဖော်မတ်ချထားပါသည်။",
+            "gift_card_used": "လက်ဆောင်ကတ်ကုဒ် {{code}} ကို လက်ဆောင်ကတ်တစ်ခုအတွက် သတ်မှတ်ပြီးသားဖြစ်သည်။ ကုဒ်များကို နှိုင်းယှဉ်ခြင်းမပြုမီ ဖော်မတ်လုပ်ထားသည်။",
+            "gift_card_invalid": "လက်ဆောင်ကတ်ကုဒ် {{code}} သည် အကျုံးမဝင်ပါ။",
+            "gift_card_code_changed": "လက်ဆောင်ကတ်ကုဒ် {{proposed_code}} ကို ဖော်မတ်ချခြင်းဆိုင်ရာ စည်းမျဉ်းများနှင့် ကိုက်ညီရန်အတွက် {{formatted_code}} ဟု ပြောင်းလဲလိုက်သည်။",
+            "gift_card_with_attributes_not_supported": "စိတ်ကြိုက်ပြင်ဆင်ထားသော ဒီဇိုင်းပါ လက်ဆောင်ကတ်များကို ဤဝယ်ယူမှုအတွက် အထောက်အပံ့မပြုပါ။",
+            "gift_card_with_components_not_supported": "ဤငွေပေးချေမှုစာမျက်နှာသည် ဒြပ်ပေါင်းလက်ဆောင်ကတ်များကို လက်ခံနိုင်ခြင်း မရှိပါ။",
+            "selling_plan_mismatch": "စာရင်းသွင်းမှုကို အပ်ဒိတ်လုပ်ထားသည်။",
+            "selling_plan_not_supported": "စာရင်းသွင်းမှုများကို မပံ့ပိုးပါ။",
+            "selling_plan_not_supported_b2b": "လုပ်ငန်းများအချင်းချင်းပေးချေမှုအတွက် စာရင်းပေးသွင်းခြင်းများကို ပံ့ပိုးမထားပါ။",
+            "price_mismatch": "ဤကုန်ပစ္စည်းအတွက် အကြံပြုထားသော စျေးနှုန်းသည် ဆက်လက်တရားဝင်ခြင်းမရှိတော့ဘဲ စျေးနှုန်းအသစ်ကို ပြင်ဆင်သတ်မှတ်ပြီးဖြစ်သည်။",
+            "inventory_not_found": "ဤပစ္စည်းအတွက် သိုလှောင်ရုံ၌ မတွေ့ပါ။",
+            "product_not_published": "ကုန်ပစ္စည်းထုတ်ပြန်မထားပါ။",
+            "product_not_published_in_buyer_location": "ထုတ်ကုန်ကို ဝယ်သူ၏ ဝက်ဘ်ဆိုက်တွင် မထုတ်ပြန်ရသေးပါ။",
+            "duplicated_stable_id": "ဤကုန်ပစ္စည်းလိုင်းသည် အခြားလိုင်းတစ်ခုနှင့် တူညီသော တည်မြဲမှု ID ရှိသည်။",
+            "minimum_quantity_not_met": "အချို့ပစ္စည်းအရေအတွက်များသည် လိုအပ်သော အနိမ့်ဆုံးပမာဏကို မပြည့်မီပါ။",
+            "maximum_quantity_exceeded": "အချို့သောပစ္စည်းအရေအတွက်များသည် ခွင့်ပြုထားသော အများဆုံးပမာဏထက် ကျော်လွန်နေသည်။",
+            "quantity_increment_not_met": "ပစ္စည်းအမျိုးအစားအချို့၏ အရေအတွက်သည် မှာယူမှုကန့်သတ်ချက်များနှင့် မကိုက်ညီပါ။",
+            "quantity_rules_not_met": "ပစ္စည်းအချို့ အရေအတွက်သည် မှာယူမှုကန့်သတ်ချက် ပြည့်မီခြင်းမရှိပါ။",
+            "bundle_requires_components": "ဤ ကုန်ပစ္စည်းအစုအဝေးတွင် ပါဝင်ပစ္စည်းများ မပါဝင်ပါ။",
+            "combined_listing_parent_not_purchasable": "စာရင်းထဲရှိ ပေါင်းစပ်ထားသော ကနဦးထုတ်ကုန်ပစ္စည်းများကို တိုက်ရိုက်ဝယ်ယူ၍ မရပါ။",
+            "title_too_long": "ကုန်ပစ္စည်းအမည်က အရမ်းရှည်ပါတယ်။",
+            "title_empty": "ကုန်ပစ္စည်းခေါင်းစဉ်အလွတ်ဖြစ်နေပါသည်။"
+          },
+          "buyer_identity": {
+            "business_customer_does_not_match_company": "ကုမ္ပဏီအဆက်အသွယ်တွင် ကုမ္ပဏီသို့ ဝင်ရောက်ခွင့်မရှိပါ။",
+            "customer_account_required": "ဆက်လက်ဆောင်ရွက်ရန် လော့ဂ်အင်ဝင်ရပါမည်။",
+            "company_location_required": "ဖောက်သည်အနေဖြင့် ဆက်လက်ဆောင်ရွက်ရန် ကုမ္ပဏီတည်နေရာကို ရွေးချယ်ရပါမည်။",
+            "company_purchase_permission_required": "ဖောက်သည်တွင် ကုမ္ပဏီတောင်းဆိုမှုများ ပြုလုပ်ရန် ခွင့်ပြုချက်မရှိပါ။",
+            "personal_order_not_allowed": "ကိုယ်ရေးကိုယ်တာတောင်းဆိုမှုများအား ဤစတိုးဆိုင်တွင် ခွင့်မပြုပါ။",
+            "lost_access_to_company": "ဖောက်သည်သည် မည်သည့်ကုမ္ပဏီကိုမှ ဝင်ရောက်အသုံးပြုနိုင်ခြင်း မရှိတော့ပါ။",
+            "contact_info_does_not_match_customer_account": "အဆက်အသွယ်အချက်အလက်သည် သင်ဝင်ရောက်ထားသည့်အကောင့်နှင့် ကိုက်ညီရပါမည်။",
+            "phone_number_does_not_match_expected_pattern": "ဖုန်းနံပါတ်သည် မှန်းဆထားသော ပုံစံနှင့် ကိုက်ညီမှုမရှိပါ။",
+            "email_required": "ပစ္စည်းများကို စာရင်းသွင်း၍ ဝယ်ယူသောအခါ အီးမေးလ်တစ်ခု လိုအပ်ပါသည်။",
+            "email_domain_is_invalid": "သတ်မှတ်ထားသော အကွာအဝေးကို ဖြေရှင်း၍မရပါ။",
+            "missing_contact_method": "ဆက်သွယ်မှုနည်းလမ်းသည် အကျိုးမရှိပါ။",
+            "checkout_completion_target_is_missing": "ငွေပေးချေမှု ပြီးဆုံးခြင်းပန်းတိုင် ပျောက်ဆုံးနေပါသည်။",
+            "invalid_customer_profile": "ဖောက်သည်ပရိုဖိုင်မမှန်ကန်ပါ။",
+            "customer_profile_access_restricted": "\"ငွေပေးချေမှုလုပ်ငန်းစဉ်\" တွင် သုံးစွဲသူပရိုဖိုင်ကို ဝင်ရောက်ခွင့်မရှိပါ။",
+            "checkout_completion_target_is_invalid_proc": "ပေးချေမှုပြီးမြောက်စေရန် ပစ်မှတ်မမှန်ပါ။",
+            "buyer_identity_presentment_currency_does_not_match": "သင့်တောင်းဆိုမှုကို ဆောင်ရွက်နေစဉ် ပြဿနာတစ်ရပ် ကြုံတွေ့ခဲ့ရသည်။ ကျေးဇူးပြု၍ မိနစ်အနည်းငယ်ကြာပြီးနောက် ထပ်မံကြိုးစားပါ။"
+          },
+          "delivery": {
+            "only_one_delivery_line_allowed": "လှည်းတွင် ပို့ဆောင်မှုလိုင်းတစ်ခုသာ ပါဝင်ရပါမည်။",
+            "wrong_number_of_delivery_lines": "ကုန်ပစ္စည်းအုပ်စုတစ်ခုစီအတွက် ပို့ဆောင်ရေးလမ်းကြောင်းကို သတ်မှတ်ရပါမည်။",
+            "external_delivery_promise_error": "ပြင်ပပေးပို့မှု ကတိကဝတ်ကို ထုတ်ယူရာတွင် အမှားဖြစ်ပွားပါသည်။",
+            "options_instructions_invalid": "သတ်မှတ်ထားသော ညွှန်ကြားချက်များသည် မျှော်လင့်ထားသည့် ပုံစံနှင့် မကိုက်ညီပါ။",
+            "destination_address_required": "ဆက်လက်ဆောင်ရွက်ရန် ခရီးဆုံးလိပ်စာ လိုအပ်ပါသည်။",
+            "pickup_points_unavailable": "လက်ခံရရှိမည့်နေရာများ လောလောဆယ် မရနိုင်သေးပါ။",
+            "local_pickup_delivery_line_detail_changed": "လက်ရှိ ပို့ဆောင်မှုမဟာဗျူဟာကို ဒေသတွင်း ပို့ဆောင်မှုအဖြစ် ပြောင်းလဲရမည်ဖြစ်ပြီး၊ သို့မှသာ ဆက်လက်လုပ်ဆောင်နိုင်မည်ဖြစ်သည်။",
+            "selected_pickup_option_no_longer_available": "ရွေးချယ်ထားသော ပို့ဆောင်မှုနည်းလမ်း မရှိတော့ပါ။",
+            "local_pickup_no_delivery_strategy_available": "ပြည်တွင်းမှလာယူရန်အတွက် ပို့ဆောင်ရေးဗျူဟာကို ရှာမတွေ့ပါ။",
+            "origin_location_id_required": "\"လက်လီရောင်းချခြင်း\" ပေးပို့မှုနည်းလမ်းကို ရွေးချယ်ပါက မူရင်းတည်နေရာ ID ထည့်သွင်းရန် လိုအပ်ပါသည်။",
+            "invalid_origin_location_id": "ရင်းမြစ်တည်နေရာ ID နှင့် ကိုက်ညီသည့်တည်နေရာကို ရှာမတွေ့ပါ။",
+            "origin_location_id_not_allowed": "တောင်းဆိုထားသော ပို့ဆောင်ရေးနည်းလမ်းများသည် အရင်းအမြစ်တည်နေရာကို ပံ့ပိုးမထားပါ။"
+          }
+        }
+      }
+    }
+  }
+}
