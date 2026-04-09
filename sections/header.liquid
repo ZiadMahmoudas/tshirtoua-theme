@@ -25,7 +25,7 @@
       <div class="header-actions">
 
     {% comment %} ── Language Switcher ── {% endcomment %}
-{% if localization.available_languages.size >= 1 %}
+{% if localization.available_languages.size > 1 %}
   <div class="lang-switcher">
     {% form 'localization', id: 'HeaderLanguageForm', class: 'localization-form' %}
       <input type="hidden" name="locale_code" id="HeaderLocaleInput"

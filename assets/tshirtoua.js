@@ -654,8 +654,21 @@ function initLangSwitcher() {
 }
 
 /* ============================================================
-   SPA NAVIGATION
+   SPA NAVIGATION — safe, whitelist-only approach
+   Only intercepts known safe routes (collections, products, pages).
+   Everything else gets a normal browser navigation.
    ============================================================ */
+
+// Routes the SPA is ALLOWED to handle
+function isSpaRoute(pathname) {
+  return (
+    pathname === '/' ||
+    pathname.startsWith('/collections') ||
+    pathname.startsWith('/products') ||
+    pathname.startsWith('/search')
+  );
+}
+
 document.addEventListener('click', async function(e) {
   const link = e.target.closest('a');
   if (!link) return;
@@ -664,16 +677,17 @@ document.addEventListener('click', async function(e) {
   try { url = new URL(link.href, window.location.origin); }
   catch(err) { return; }
 
-  const isInternal     = url.origin === window.location.origin;
-  const isModified     = e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;
-  const hasTarget      = link.target && link.target !== '_self';
-  const isDownload     = link.hasAttribute('download');
-  const isAnchorOnly   = link.href.includes('#') && url.pathname === window.location.pathname;
-  const isCheckout     = url.pathname.startsWith('/checkout');
-  const isLocalization = url.pathname === '/localization';
-  const isAccount      = url.pathname.startsWith('/account'); // let Shopify handle auth
+  const isInternal = url.origin === window.location.origin;
+  const isModified = e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;
+  const hasTarget  = link.target && link.target !== '_self';
+  const isDownload = link.hasAttribute('download');
+  const isAnchor   = link.href.includes('#') && url.pathname === window.location.pathname;
 
-  if (!isInternal || isModified || hasTarget || isDownload || isAnchorOnly || isCheckout || isLocalization || isAccount) return;
+  // Only continue if internal, unmodified, no target, not a download, not anchor-only
+  if (!isInternal || isModified || hasTarget || isDownload || isAnchor) return;
+
+  // Only SPA-handle whitelisted routes
+  if (!isSpaRoute(url.pathname)) return;
 
   e.preventDefault();
   try {
@@ -681,13 +695,24 @@ document.addEventListener('click', async function(e) {
     const res = await fetch(url.pathname + url.search, {
       headers: { 'X-Requested-With': 'XMLHttpRequest' }
     });
-    if (!res.ok) { window.location.href = url.href; return; }
+
+    // Any non-200 → let the browser handle it normally (shows Shopify 404 properly)
+    if (!res.ok) {
+      window.location.href = url.href;
+      return;
+    }
+
     const html = await res.text();
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
     const newContent  = doc.querySelector('#main-content');
     const currContent = document.querySelector('#main-content');
-    if (!newContent || !currContent) { window.location.href = url.href; return; }
+
+    if (!newContent || !currContent) {
+      window.location.href = url.href;
+      return;
+    }
+
     currContent.innerHTML = newContent.innerHTML;
     document.title = doc.title;
     history.pushState({}, '', url.href);
@@ -701,6 +726,10 @@ document.addEventListener('click', async function(e) {
 });
 
 window.addEventListener('popstate', async function() {
+  if (!isSpaRoute(window.location.pathname)) {
+    window.location.reload();
+    return;
+  }
   try {
     const res = await fetch(window.location.pathname + window.location.search);
     if (!res.ok) { window.location.reload(); return; }
