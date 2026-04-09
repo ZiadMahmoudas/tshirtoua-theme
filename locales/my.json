@@ -583,7 +583,99 @@
     "ui_components": {
       "clear": "ရှင်းလင်းပြတ်သားသည်။",
       "clipboardCopied": "ကူးယူပြီးပါပြီ။",
-      "clipboardFailedToCopy": "ကူးယူမှု မအောင်မြင်ပါ"
+      "clipboardFailedToCopy": "ကူးယူမှု မအောင်မြင်ပါ",
+      "closeNotification": "ပိတ်ရန်",
+      "expandNotification": "နောက်ထပ်ပြရန်",
+      "closeModal": "ပိတ်ရန်",
+      "submit": "ပို့ပါ",
+      "processing": "လုပ်ဆောင်နေသည်...",
+      "increase": "{{type}} တိုးမြှင့်ခြင်း",
+      "decrease": "လျှော့ချခြင်း",
+      "minimumReached": "အနည်းဆုံး {{value}} သို့ ရောက်ရှိသွားပါပြီ။",
+      "maximumReached": "{{value}} သတ်မှတ်ချက်ကို ရောက်ရှိနေပါပြီ။",
+      "january": "ဇန်နဝါရီ",
+      "february": "ဖေဖော်ဝါရီ",
+      "march": "မတ်လ",
+      "april": "ဧပြီလ",
+      "may": "မေလ",
+      "june": "ဇွန်လ",
+      "july": "ဇူလိုင်",
+      "august": "သြဂုတ်",
+      "september": "စက်တင်ဘာ",
+      "october": "အောက်တိုဘာ",
+      "november": "နိုဝင်ဘာ",
+      "december": "ဒီဇင်ဘာ",
+      "monday": "တနင်္လာနေ့",
+      "tuesday": "အင်္ဂါနေ့",
+      "wednesday": "ဗုဒ္ဓဟူးနေ့",
+      "thursday": "ကြာသပတေးနေ့",
+      "friday": "သောကြာနေ့",
+      "saturday": "စနေနေ့",
+      "sunday": "တနင်္ဂနွေနေ့",
+      "mondayAbbreviation": "အမေ",
+      "tuesdayAbbreviation": "သင်",
+      "wednesdayAbbreviation": "ကျွန်ုပ်တို့",
+      "thursdayAbbreviation": "ကြာသပတေးနေ့",
+      "fridayAbbreviation": "သဘောတူပါသည်",
+      "saturdayAbbreviation": "ဆာ",
+      "sundayAbbreviation": "အဲဒီလိုပဲ",
+      "showNextMonth": "နောက်လကြည့်ရန်၊ {{month}} {{year}}",
+      "showPreviousMonth": "ယခင်လ၏ မြင်ကွင်း၊ {{month}} {{year}}",
+      "rangeStart": "အတိုင်းအတာစမှတ်",
+      "inRange": "အကြုံးဝင်သည်။",
+      "rangeEnd": "အကွာအဝေး၏အဆုံး",
+      "autocompleteOptionsAvailable": {
+        "one": "ပစ္စည်း {{count}} ခု ရရှိနိုင်ပါသည်",
+        "other": "{{count}} ရရှိနိုင်သော ပစ္စည်းများ"
+      },
+      "removeItem": "{{label}} ကို ဖယ်ရှားပါ။",
+      "removeTag": "tag ဖျက်ပါ။",
+      "month": {
+        "one": "လ",
+        "other": "လများ"
+      },
+      "mapClusterTitle": {
+        "one": "တံဆိပ် {{number}} ခုအစုအဝေး",
+        "other": "အမှတ်အသား {{number}} ခုပါဝင်သော အစုတစ်ခု"
+      },
+      "expandSheet": "ချဲ့ထွင်ခြင်း",
+      "qrCode": "QR ကုဒ်",
+      "addFile": "ဖိုင်ထည့်ရန်",
+      "dropzoneInvalidFileType": "ဖိုင်အမျိုးအစားကို ပံ့ပိုးမထားပါ။",
+      "dropzoneDraggedOver": "ဖိုင်ကို အပ်လုဒ်လုပ်ရန် ဆွဲယူပါ"
+    },
+    "callback": {
+      "try_again": "ထပ်ကြိုးစားပါ"
+    },
+    "date": {
+      "humanize": {
+        "lessThanOneHourAgo": {
+          "one": "တစ်မိနစ်အကြာ",
+          "other": "မိနစ် {{count}} ခန့်က"
+        },
+        "lessThanOneMinuteAgo": "ခုမှ",
+        "yesterday": "မနေ့က {{time}} နာရီမှာ",
+        "today": "ယနေ့ {{time}} နာရီ",
+        "tomorrow": "မနက်ဖြန် {{time}} နာရီ"
+      }
+    },
+    "enable_javascript": "သင့်အကောင့်ကို ကြည့်ရှုရန်၊ သင့်ဘရောက်ဆာ ဆက်တင်များတွင် JavaScript ကို ဖွင့်ပါ သို့မဟုတ် အခြားဘရောက်ဆာတစ်ခုဖြင့် ဝင်ရောက်ပါ။"
+  },
+  "general": {
+    "search": {
+      "placeholder": "ရှာဖွေပါ...",
+      "title": "ရှာဖွေပါ။"
+    },
+    "dark_mode": {
+      "toggle": "မုဒ်ပြောင်းမည်"
+    },
+    "wishlist": {
+      "title": "အကြိုက်ဆုံး"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "ဈေးဝယ်လှည်း"
     }
   }
 }
